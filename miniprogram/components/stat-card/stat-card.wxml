@@ -1,0 +1,17 @@
+<view class="stat-card" style="background: {{bgColor || '#FFFFFF'}};">
+  <view class="stat-icon" wx:if="{{icon}}">
+    <text>{{icon}}</text>
+  </view>
+  <view class="stat-content">
+    <view class="stat-value" style="color: {{valueColor || '#1A1A2E'}};">
+      <text class="value-num">{{value || '0'}}</text>
+      <text class="value-unit" wx:if="{{unit}}">{{unit}}</text>
+    </view>
+    <view class="stat-label">{{label}}</view>
+    <view class="stat-trend" wx:if="{{trend !== undefined && trend !== null}}">
+      <text class="trend-{{trend >= 0 ? 'up' : 'down'}}">
+        {{trend >= 0 ? '↑' : '↓'}} {{trendText || ''}}
+      </text>
+    </view>
+  </view>
+</view>

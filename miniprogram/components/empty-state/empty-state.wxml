@@ -1,0 +1,13 @@
+<view class="empty-state">
+  <view class="empty-icon">
+    <text>{{icon || '📭'}}</text>
+  </view>
+  <view class="empty-title">{{title || '暂无数据'}}</view>
+  <view class="empty-desc" wx:if="{{description}}">{{description}}</view>
+  <van-button type="primary" size="small" round 
+              wx:if="{{buttonText}}" 
+              bind:click="onAction"
+              custom-style="background: #FF6B35; border-color: #FF6B35; margin-top: 24rpx;">
+    {{buttonText}}
+  </van-button>
+</view>

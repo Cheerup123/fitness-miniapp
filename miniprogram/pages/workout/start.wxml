@@ -1,0 +1,160 @@
+<view class="workout-page">
+  <!-- 顶部计时栏 -->
+  <view class="timer-bar">
+    <view class="timer-left">
+      <text class="timer-text {{isPaused ? 'paused' : ''}}">{{elapsed}}</text>
+      <text class="timer-label" wx:if="{{isPaused}}">已暂停</text>
+    </view>
+    <view class="timer-actions">
+      <view class="timer-btn" bindtap="onTogglePause">
+        <text>{{isPaused ? '▶️' : '⏸️'}}</text>
+      </view>
+      <view class="timer-btn finish-btn" bindtap="onFinishTraining">
+        <text>✅</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 训练进度 -->
+  <view class="progress-bar" wx:if="{{exercises.length > 0}}">
+    <view class="progress-info">
+      <text>动作 {{currentExerciseIndex + 1}}/{{exercises.length}}</text>
+      <text>已完成 {{completedSets}} 组</text>
+    </view>
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{exercises.length > 0 ? (currentExerciseIndex + 1) / exercises.length * 100 : 0}}%"></view>
+    </view>
+  </view>
+
+  <!-- 动作列表横向切换 -->
+  <scroll-view class="exercise-tabs" scroll-x="{{true}}" wx:if="{{exercises.length > 0}}">
+    <view class="exercise-tab {{index === currentExerciseIndex ? 'active' : ''}} {{item.sets_data.length >= item.target_sets ? 'done' : ''}}"
+          wx:for="{{exercises}}" wx:key="exercise_id"
+          bindtap="onExerciseChange" data-index="{{index}}">
+      <text class="tab-name">{{item.exercise_name}}</text>
+      <text class="tab-count">{{item.sets_data.length || 0}}/{{item.target_sets}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 当前动作详情 -->
+  <view class="current-exercise" wx:if="{{exercises.length > 0}}">
+    <view class="exercise-header">
+      <text class="exercise-name">{{exercises[currentExerciseIndex].exercise_name}}</text>
+      <view class="exercise-target">
+        目标: {{exercises[currentExerciseIndex].target_sets}}组 × {{exercises[currentExerciseIndex].target_reps}}
+      </view>
+    </view>
+
+    <!-- 已完成组列表 -->
+    <view class="sets-list" wx:if="{{exercises[currentExerciseIndex].sets_data.length > 0}}">
+      <view class="sets-header">
+        <text class="set-col">组</text>
+        <text class="set-col">重量</text>
+        <text class="set-col">次数</text>
+        <text class="set-col">类型</text>
+      </view>
+      <view class="set-row {{index === currentSetIndex - 1 ? 'latest' : ''}}"
+            wx:for="{{exercises[currentExerciseIndex].sets_data}}" wx:key="set_number">
+        <text class="set-col set-num">{{item.set_number}}</text>
+        <text class="set-col">{{item.weight_kg}}kg</text>
+        <text class="set-col">{{item.reps}}</text>
+        <text class="set-col">
+          <van-tag type="primary" size="mini" wx:if="{{item.set_type === 'warmup'}}">热身</van-tag>
+          <van-tag type="warning" size="mini" wx:elif="{{item.set_type === 'dropset'}}">递减</van-tag>
+          <van-tag type="danger" size="mini" wx:elif="{{item.set_type === 'failure'}}">力竭</van-tag>
+          <van-tag type="success" size="mini" wx:else>正式</van-tag>
+        </text>
+      </view>
+    </view>
+
+    <!-- 当前组输入 -->
+    <view class="set-input-area">
+      <view class="set-input-header">
+        <text class="set-input-label">第 {{currentSetIndex + 1}} 组</text>
+        <van-radio-group value="{{currentSetType}}" bind:change="onSetTypeChange" direction="horizontal">
+          <van-radio name="normal" checked-color="#FF6B35" icon-size="28rpx">正式</van-radio>
+          <van-radio name="warmup" checked-color="#FF6B35" icon-size="28rpx">热身</van-radio>
+        </van-radio-group>
+      </view>
+
+      <view class="input-row">
+        <view class="input-group">
+          <text class="input-label">重量(kg)</text>
+          <input type="digit" class="set-input" placeholder="0"
+                 value="{{weightInput}}" bindinput="onWeightInput"
+                 adjust-position="{{true}}" />
+        </view>
+        <view class="input-group">
+          <text class="input-label">次数</text>
+          <input type="number" class="set-input" placeholder="0"
+                 value="{{repsInput}}" bindinput="onRepsInput"
+                 adjust-position="{{true}}" />
+        </view>
+      </view>
+
+      <van-button type="primary" block round
+                  custom-style="background: linear-gradient(135deg, #FF6B35, #FF8F65); border: none; height: 88rpx; margin-top: 24rpx;"
+                  bindtap="onCompleteSet">
+        完成本组 💪
+      </van-button>
+    </view>
+
+    <!-- 动作切换 -->
+    <view class="nav-buttons">
+      <van-button size="small" plain round
+                  custom-style="color: #666; border-color: #ddd;"
+                  disabled="{{currentExerciseIndex === 0}}"
+                  bindtap="onPrevExercise">上一个动作</van-button>
+      <van-button size="small" plain round type="primary"
+                  custom-style="color: #FF6B35; border-color: #FF6B35;"
+                  disabled="{{currentExerciseIndex >= exercises.length - 1}}"
+                  bindtap="onNextExercise">下一个动作</van-button>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-workout" wx:if="{{exercises.length === 0}}">
+    <text class="empty-icon">🏋️</text>
+    <text class="empty-text">自由训练模式</text>
+    <text class="empty-desc">从动作库中选择动作开始训练</text>
+  </view>
+
+  <!-- 休息计时弹窗 -->
+  <view class="rest-overlay" wx:if="{{isResting}}">
+    <view class="rest-card">
+      <text class="rest-title">组间休息</text>
+      <view class="rest-circle">
+        <text class="rest-time">{{restTimeLeft}}</text>
+        <text class="rest-unit">秒</text>
+      </view>
+      <view class="rest-progress">
+        <view class="rest-progress-fill" style="width: {{restTotal > 0 ? (restTotal - restTimeLeft) / restTotal * 100 : 0}}%"></view>
+      </view>
+      <view class="rest-actions">
+        <van-button size="small" round plain bindtap="onSkipRest"
+                    custom-style="color: #FF6B35; border-color: #FF6B35; padding: 0 40rpx;">跳过</van-button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 训练感受弹窗 -->
+  <van-popup show="{{showFeelingSheet}}" position="bottom" round bind:close="onCancelFeeling">
+    <view class="feeling-sheet">
+      <text class="feeling-title">训练感受如何？</text>
+      <view class="feeling-options">
+        <view class="feeling-item {{feelingScore === item.value ? 'selected' : ''}}"
+              wx:for="{{feelingScores}}" wx:key="value"
+              bindtap="onFeelingSelect" data-value="{{item.value}}">
+          <text class="feeling-emoji">{{item.emoji}}</text>
+          <text class="feeling-label">{{item.label}}</text>
+        </view>
+      </view>
+      <van-field type="textarea" placeholder="训练备注（选填）" value="{{notes}}"
+                 bindinput="onNotesInput" maxlength="200"
+                 custom-style="margin: 24rpx 0;" />
+      <van-button type="primary" block round
+                  custom-style="background: #FF6B35; border: none; height: 88rpx;"
+                  bindtap="onCompleteWorkout">完成训练 🎉</van-button>
+    </view>
+  </van-popup>
+</view>

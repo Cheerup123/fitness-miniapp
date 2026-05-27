@@ -1,0 +1,93 @@
+<view class="container">
+  <!-- 计划头部 -->
+  <view class="plan-header card">
+    <view class="plan-cover" wx:if="{{plan.cover_image_url}}">
+      <image src="{{plan.cover_image_url}}" mode="aspectFill"></image>
+    </view>
+    <view class="plan-title">{{plan.name}}</view>
+    <view class="plan-desc">{{plan.description}}</view>
+    <view class="plan-tags">
+      <van-tag type="primary" size="medium">{{difficultyLabel}}</van-tag>
+      <van-tag type="success" size="medium" wx:if="{{goalLabel}}">{{goalLabel}}</van-tag>
+      <van-tag type="warning" size="medium" wx:if="{{plan.is_system}}">系统推荐</van-tag>
+    </view>
+    <view class="plan-info-grid">
+      <view class="info-item">
+        <text class="info-value">{{plan.duration_weeks}}</text>
+        <text class="info-label">周</text>
+      </view>
+      <view class="info-item">
+        <text class="info-value">{{plan.days_per_week}}</text>
+        <text class="info-label">天/周</text>
+      </view>
+      <view class="info-item" wx:if="{{plan.avg_duration_min}}">
+        <text class="info-value">{{plan.avg_duration_min}}</text>
+        <text class="info-label">分钟/次</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 周选择 -->
+  <view class="week-selector">
+    <view class="section-title">📅 训练安排</view>
+    <scroll-view scroll-x class="week-scroll">
+      <view class="week-tabs">
+        <view class="week-tab {{currentWeek === item ? 'active' : ''}}" 
+              wx:for="{{weekCount}}" wx:key="*this"
+              bindtap="onWeekChange" data-week="{{item}}">
+          第{{item}}周
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 每日训练安排 -->
+  <view class="day-list">
+    <view class="day-card card" wx:for="{{currentDays}}" wx:key="id">
+      <view class="day-header" bindtap="toggleDay" data-index="{{index}}">
+        <view class="day-info">
+          <view class="day-label">
+            <text class="day-name">周{{weekdays[item.day_of_week - 1]}}</text>
+            <text class="day-tag" wx:if="{{item.day_label}}">{{item.day_label}}</text>
+          </view>
+          <view class="day-rest" wx:if="{{item.is_rest_day}}">🛌 休息日</view>
+        </view>
+        <van-icon name="{{item.expanded ? 'arrow-up' : 'arrow-down'}}" color="#999" />
+      </view>
+      
+      <view class="day-exercises" wx:if="{{item.expanded && !item.is_rest_day}}">
+        <view class="exercise-item" wx:for="{{item.exercises}}" wx:for-item="ex" wx:key="id">
+          <view class="exercise-index">{{index + 1}}</view>
+          <view class="exercise-info">
+            <text class="exercise-name">{{ex.exercise_name}}</text>
+            <view class="exercise-detail">
+              <text wx:if="{{ex.sets}}">{{ex.sets}}组</text>
+              <text wx:if="{{ex.reps}}"> × {{ex.reps}}次</text>
+              <text wx:if="{{ex.rest_sec}}"> | 休息{{ex.rest_sec}}s</text>
+            </view>
+            <text class="exercise-notes" wx:if="{{ex.notes}}">💡 {{ex.notes}}</text>
+          </view>
+          <view class="exercise-type-tag">
+            <van-tag size="mini" type="{{ex.exercise_type === 'strength' ? 'primary' : 'success'}}">
+              {{ex.exercise_type === 'strength' ? '力量' : '有氧'}}
+            </van-tag>
+          </view>
+        </view>
+
+        <view class="day-action" wx:if="{{item.exercises.length > 0}}">
+          <van-button type="primary" round block size="small" 
+                      custom-style="background: #FF6B35; border-color: #FF6B35;"
+                      bindtap="startWorkout" data-day-id="{{item.id}}">
+            开始训练
+          </van-button>
+        </view>
+      </view>
+
+      <view class="day-exercises" wx:if="{{item.expanded && item.is_rest_day}}">
+        <view class="rest-day-tip">
+          <text>好好休息，为下一次训练蓄力 💪</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

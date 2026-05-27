@@ -1,0 +1,75 @@
+<view class="container">
+  <!-- 最新数据 -->
+  <view class="latest-card card" wx:if="{{latestRecord}}">
+    <view class="section-title">📊 最新数据</view>
+    <view class="latest-grid">
+      <view class="latest-item" wx:if="{{latestRecord.weight_kg}}">
+        <text class="latest-value">{{latestRecord.weight_kg}}</text>
+        <text class="latest-unit">kg</text>
+        <text class="latest-label">体重</text>
+      </view>
+      <view class="latest-item" wx:if="{{latestRecord.body_fat_pct}}">
+        <text class="latest-value">{{latestRecord.body_fat_pct}}</text>
+        <text class="latest-unit">%</text>
+        <text class="latest-label">体脂率</text>
+      </view>
+      <view class="latest-item" wx:if="{{latestRecord.muscle_mass_kg}}">
+        <text class="latest-value">{{latestRecord.muscle_mass_kg}}</text>
+        <text class="latest-unit">kg</text>
+        <text class="latest-label">肌肉量</text>
+      </view>
+      <view class="latest-item" wx:if="{{latestRecord.bmi}}">
+        <text class="latest-value">{{latestRecord.bmi}}</text>
+        <text class="latest-unit"></text>
+        <text class="latest-label">BMI</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 指标切换 -->
+  <view class="metric-tabs card">
+    <view class="metric-tab {{currentMetric === item.key ? 'active' : ''}}"
+          wx:for="{{metrics}}" wx:key="key"
+          bindtap="onMetricChange" data-key="{{item.key}}">
+      <text>{{item.label}}</text>
+    </view>
+  </view>
+
+  <!-- 图表 -->
+  <view class="chart-card card">
+    <view class="section-title">📈 趋势图</view>
+    <view class="chart-area" wx:if="{{chartPoints}}">
+      <svg viewBox="0 0 {{chartWidth}} {{chartHeight}}" class="chart-svg">
+        <!-- 网格线 -->
+        <line x1="40" y1="40" x2="{{chartWidth - 40}}" y2="40" stroke="#F0F0F0" stroke-width="1"/>
+        <line x1="40" y1="{{chartHeight / 2}}" x2="{{chartWidth - 40}}" y2="{{chartHeight / 2}}" stroke="#F0F0F0" stroke-width="1"/>
+        <line x1="40" y1="{{chartHeight - 40}}" x2="{{chartWidth - 40}}" y2="{{chartHeight - 40}}" stroke="#F0F0F0" stroke-width="1"/>
+        <!-- 数据线 -->
+        <polyline points="{{chartPoints}}" fill="none" stroke="#FF6B35" stroke-width="3" stroke-linejoin="round"/>
+        <!-- 数据点 -->
+        <circle wx:for="{{chartValues}}" wx:key="index"
+                cx="{{40 + index * (chartWidth - 80) / (chartValues.length - 1)}}"
+                cy="{{chartHeight - 40 - (item - minValue) / (maxValue - minValue || 1) * (chartHeight - 80)}}"
+                r="5" fill="#FF6B35" stroke="#FFF" stroke-width="2"/>
+      </svg>
+      <view class="chart-labels">
+        <text wx:for="{{chartLabels}}" wx:key="index">{{item}}</text>
+      </view>
+    </view>
+    <van-empty wx:else image="search" description="暂无数据，开始记录吧"></van-empty>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="history-card card" wx:if="{{records.length > 0}}">
+    <view class="section-title">📋 历史记录</view>
+    <view class="record-row" wx:for="{{records}}" wx:key="id" wx:if="{{index < 10}}">
+      <text class="record-date">{{item.dateStr}}</text>
+      <text class="record-value" wx:if="{{item.weight_kg}}">{{item.weight_kg}}kg</text>
+      <text class="record-value" wx:if="{{item.body_fat_pct}}">体脂{{item.body_fat_pct}}%</text>
+    </view>
+  </view>
+
+  <van-button type="primary" block round fixed="{{true}}" bottom="{{true}}"
+              custom-style="background: linear-gradient(135deg, #FF6B35, #FF8F65); border: none; margin: 24rpx;"
+              bindtap="goRecord">记录数据</van-button>
+</view>

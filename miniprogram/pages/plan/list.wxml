@@ -1,0 +1,51 @@
+<view class="container">
+  <!-- 筛选标签 -->
+  <view class="filter-tabs">
+    <van-tabs active="{{activeTab}}" bind:change="onTabChange" color="#FF6B35" title-active-color="#FF6B35">
+      <van-tab title="推荐计划" name="system"></van-tab>
+      <van-tab title="全部计划" name="all"></van-tab>
+      <van-tab title="我的计划" name="my"></van-tab>
+    </van-tabs>
+  </view>
+
+  <!-- 目标筛选 -->
+  <view class="goal-filter">
+    <view class="goal-item {{selectedGoal === '' ? 'active' : ''}}" bindtap="onGoalFilter" data-goal="">全部</view>
+    <view class="goal-item {{selectedGoal === item.value ? 'active' : ''}}" 
+          wx:for="{{goals}}" wx:key="value" 
+          bindtap="onGoalFilter" data-goal="{{item.value}}">
+      {{item.icon}} {{item.label}}
+    </view>
+  </view>
+
+  <!-- 计划列表 -->
+  <view class="plan-list" wx:if="{{plans.length > 0}}">
+    <view class="plan-card card" wx:for="{{plans}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="plan-cover" wx:if="{{item.cover_image_url}}">
+        <image src="{{item.cover_image_url}}" mode="aspectFill"></image>
+      </view>
+      <view class="plan-info">
+        <view class="plan-name">{{item.name}}</view>
+        <view class="plan-desc text-ellipsis-2">{{item.description}}</view>
+        <view class="plan-meta">
+          <van-tag type="primary" size="medium">{{item.difficulty_level === 'beginner' ? '入门' : item.difficulty_level === 'intermediate' ? '进阶' : '高级'}}</van-tag>
+          <van-tag type="success" size="medium" wx:if="{{item.fitness_goal}}">
+            {{item.fitness_goal === 'lose_fat' ? '减脂' : item.fitness_goal === 'gain_muscle' ? '增肌' : item.fitness_goal === 'keep_fit' ? '塑形' : '耐力'}}
+          </van-tag>
+        </view>
+        <view class="plan-stats">
+          <text class="stat-item">{{item.duration_weeks}}周</text>
+          <text class="stat-item">{{item.days_per_week}}天/周</text>
+          <text class="stat-item" wx:if="{{item.avg_duration_min}}">约{{item.avg_duration_min}}分钟</text>
+          <text class="stat-item" wx:if="{{item.exerciseCount}}">{{item.exerciseCount}}个动作</text>
+        </view>
+      </view>
+      <view class="plan-arrow">
+        <van-icon name="arrow" color="#CCCCCC" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <empty-state wx:else icon="📋" title="暂无训练计划" description="换个筛选条件试试吧"></empty-state>
+</view>

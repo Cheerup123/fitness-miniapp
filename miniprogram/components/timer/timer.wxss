@@ -1,0 +1,152 @@
+.timer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.timer-panel {
+  position: relative;
+  width: 600rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+  margin-bottom: 32rpx;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.timer-minutes,
+.timer-seconds {
+  font-size: 96rpx;
+  font-weight: 700;
+  color: #FF6B35;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-separator {
+  font-size: 80rpx;
+  font-weight: 700;
+  color: #FF6B35;
+  margin: 0 8rpx;
+}
+
+.progress-ring {
+  position: relative;
+  width: 300rpx;
+  height: 300rpx;
+  margin-bottom: 40rpx;
+}
+
+.ring-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #F0F0F5;
+}
+
+.ring-progress {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  mask: radial-gradient(transparent 120rpx, #000 121rpx);
+  -webkit-mask: radial-gradient(transparent 120rpx, #000 121rpx);
+}
+
+.ring-inner {
+  position: absolute;
+  top: 30rpx;
+  left: 30rpx;
+  right: 30rpx;
+  bottom: 30rpx;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.timer-btn {
+  padding: 16rpx 40rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.timer-btn-start {
+  background: linear-gradient(135deg, #FF6B35, #FF8F65);
+  color: #FFFFFF;
+}
+
+.timer-btn-pause {
+  background: #FF9800;
+  color: #FFFFFF;
+}
+
+.timer-btn-reset {
+  background: #F5F5FA;
+  color: #666666;
+}
+
+.timer-btn-skip {
+  background: #F5F5FA;
+  color: #666666;
+}
+
+.timer-presets {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.preset-label {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.preset-item {
+  padding: 8rpx 20rpx;
+  border-radius: 6rpx;
+  background: #F5F5FA;
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.preset-item.active {
+  background: rgba(255, 107, 53, 0.1);
+  color: #FF6B35;
+}

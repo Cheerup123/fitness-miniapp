@@ -1,0 +1,41 @@
+<view class="container">
+  <van-search value="{{searchKeyword}}" placeholder="搜索动作" shape="round"
+              background="#F5F5FA" bind:search="onSearch" bind:clear="onSearchClear" />
+
+  <van-tabs active="{{currentTab}}" bind:change="onTabChange" sticky="{{true}}"
+            color="#FF6B35" title-active-color="#FF6B35">
+    <van-tab title="全部" name="all"></van-tab>
+    <van-tab wx:for="{{bodyParts}}" wx:key="id" title="{{item.name}}" name="{{item.id}}"></van-tab>
+  </van-tabs>
+
+  <!-- 筛选器 -->
+  <view class="filter-bar">
+    <view class="filter-tag {{currentType === '' ? 'active' : ''}}" bindtap="onTypeFilter" data-type="">全部</view>
+    <view class="filter-tag {{currentType === 'strength' ? 'active' : ''}}" bindtap="onTypeFilter" data-type="strength">🏋️ 力量</view>
+    <view class="filter-tag {{currentType === 'cardio' ? 'active' : ''}}" bindtap="onTypeFilter" data-type="cardio">🏃 有氧</view>
+    <view class="filter-tag {{currentType === 'flexibility' ? 'active' : ''}}" bindtap="onTypeFilter" data-type="flexibility">🧘 柔韧</view>
+  </view>
+
+  <!-- 动作列表 -->
+  <view class="exercise-list">
+    <view class="exercise-item" wx:for="{{exercises}}" wx:key="id"
+          bindtap="onTapExercise" data-id="{{item.id}}">
+      <view class="ex-icon">
+        <image wx:if="{{item.demo_image_url}}" src="{{item.demo_image_url}}" mode="aspectFill"></image>
+        <text wx:else class="ex-icon-text">💪</text>
+      </view>
+      <view class="ex-info">
+        <text class="ex-name">{{item.name}}</text>
+        <view class="ex-tags">
+          <van-tag type="primary" size="mini" round>{{item.exercise_type === 'strength' ? '力量' : item.exercise_type === 'cardio' ? '有氧' : '其他'}}</van-tag>
+          <van-tag size="mini" round wx:if="{{item.equipment && item.equipment !== 'none'}}">{{item.equipment}}</van-tag>
+          <van-tag size="mini" round wx:if="{{item.is_compound}}">复合</van-tag>
+        </view>
+      </view>
+      <van-icon name="arrow" color="#CCC" size="20" />
+    </view>
+  </view>
+
+  <van-loading wx:if="{{loading}}" type="spinner" color="#FF6B35" size="24px" custom-style="display:flex;justify-content:center;padding:32rpx;">加载中...</van-loading>
+  <van-empty wx:if="{{exercises.length === 0 && !loading}}" image="search" description="暂无动作"></van-empty>
+</view>

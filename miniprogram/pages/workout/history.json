@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "训练历史",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-empty": "/miniprogram_npm/@vant/weapp/empty/index",
+    "van-tag": "/miniprogram_npm/@vant/weapp/tag/index",
+    "van-loading": "/miniprogram_npm/@vant/weapp/loading/index"
+  }
+}

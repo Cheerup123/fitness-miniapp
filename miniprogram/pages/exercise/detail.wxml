@@ -1,0 +1,67 @@
+<view class="container" wx:if="{{exercise}}">
+  <!-- 演示图 -->
+  <view class="demo-area" bindtap="onPreviewImage">
+    <image wx:if="{{exercise.demo_image_url}}" src="{{exercise.demo_image_url}}" mode="aspectFill" class="demo-img"></image>
+    <view wx:else class="demo-placeholder">
+      <text class="demo-icon">💪</text>
+    </view>
+    <view class="favorite-btn" catchtap="onToggleFavorite">
+      <van-icon name="{{isFavorite ? 'star' : 'star-o'}}" size="48rpx" color="{{isFavorite ? '#FF6B35' : '#FFF'}}" />
+    </view>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="info-card card">
+    <text class="ex-name">{{exercise.name}}</text>
+    <text class="ex-name-en" wx:if="{{exercise.name_en}}">{{exercise.name_en}}</text>
+    <view class="ex-tags">
+      <van-tag type="primary" round>{{exercise.exercise_type === 'strength' ? '力量训练' : exercise.exercise_type === 'cardio' ? '有氧运动' : '其他'}}</van-tag>
+      <van-tag round wx:if="{{exercise.difficulty === 'beginner'}}" type="success">入门</van-tag>
+      <van-tag round wx:elif="{{exercise.difficulty === 'intermediate'}}" type="warning">进阶</van-tag>
+      <van-tag round wx:elif="{{exercise.difficulty === 'advanced'}}" type="danger">高级</van-tag>
+      <van-tag round wx:if="{{exercise.equipment && exercise.equipment !== 'none'}}">{{exercise.equipment}}</van-tag>
+      <van-tag round wx:if="{{exercise.is_compound}}">复合动作</van-tag>
+    </view>
+  </view>
+
+  <!-- 目标肌群 -->
+  <view class="card" wx:if="{{exercise.body_parts && exercise.body_parts.length > 0}}">
+    <view class="section-title">🎯 目标肌群</view>
+    <view class="muscle-list">
+      <view class="muscle-item" wx:for="{{exercise.body_parts}}" wx:key="body_part_id">
+        <text class="muscle-name">{{item.name}}</text>
+        <van-tag size="mini" type="{{item.is_primary ? 'primary' : ''}}">{{item.is_primary ? '主要' : '辅助'}}</van-tag>
+      </view>
+    </view>
+  </view>
+
+  <!-- 动作描述 -->
+  <view class="card" wx:if="{{exercise.description}}">
+    <view class="section-title">📝 动作描述</view>
+    <text class="desc-text">{{exercise.description}}</text>
+  </view>
+
+  <!-- 动作步骤 -->
+  <view class="card" wx:if="{{exercise.instructions && exercise.instructions.length > 0}}">
+    <view class="section-title">📋 动作步骤</view>
+    <view class="step-list">
+      <view class="step-item" wx:for="{{exercise.instructions}}" wx:key="index">
+        <view class="step-num">{{index + 1}}</view>
+        <text class="step-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 注意事项 -->
+  <view class="card" wx:if="{{exercise.tips && exercise.tips.length > 0}}">
+    <view class="section-title">⚠️ 注意事项</view>
+    <view class="tip-list">
+      <view class="tip-item" wx:for="{{exercise.tips}}" wx:key="index">
+        <text class="tip-dot">•</text>
+        <text class="tip-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<van-loading wx:if="{{loading}}" type="spinner" color="#FF6B35" size="48px" custom-style="display:flex;justify-content:center;padding:120rpx 0;" />

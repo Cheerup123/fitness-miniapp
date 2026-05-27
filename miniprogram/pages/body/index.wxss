@@ -1,0 +1,19 @@
+.container { padding: 24rpx; padding-bottom: 160rpx; }
+.latest-card { padding: 32rpx; }
+.latest-grid { display: flex; justify-content: space-around; margin-top: 16rpx; }
+.latest-item { display: flex; flex-direction: column; align-items: center; }
+.latest-value { font-size: 48rpx; font-weight: 700; color: #FF6B35; }
+.latest-unit { font-size: 22rpx; color: #999; }
+.latest-label { font-size: 24rpx; color: #666; margin-top: 4rpx; }
+.metric-tabs { display: flex; padding: 16rpx; gap: 16rpx; }
+.metric-tab { flex: 1; text-align: center; padding: 16rpx 0; border-radius: 12rpx; background: #F5F5FA; font-size: 26rpx; color: #666; }
+.metric-tab.active { background: rgba(255,107,53,0.1); color: #FF6B35; font-weight: 600; }
+.chart-card { padding: 32rpx; }
+.chart-area { width: 100%; overflow: hidden; }
+.chart-svg { width: 100%; height: 300rpx; }
+.chart-labels { display: flex; justify-content: space-between; padding: 8rpx 40rpx 0; }
+.chart-labels text { font-size: 20rpx; color: #999; }
+.history-card { padding: 32rpx; }
+.record-row { display: flex; justify-content: space-between; align-items: center; padding: 16rpx 0; border-bottom: 1rpx solid #F5F5FA; }
+.record-date { font-size: 28rpx; color: #333; }
+.record-value { font-size: 26rpx; color: #FF6B35; }

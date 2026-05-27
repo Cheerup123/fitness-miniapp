@@ -1,0 +1,93 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/plan/list",
+    "pages/plan/detail",
+    "pages/workout/start",
+    "pages/workout/history",
+    "pages/workout/summary",
+    "pages/exercise/list",
+    "pages/exercise/detail",
+    "pages/body/index",
+    "pages/body/record",
+    "pages/profile/index",
+    "pages/profile/edit"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FF6B35",
+    "navigationBarTitleText": "运动健身助手",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F5FA"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FF6B35",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/exercise/list",
+        "text": "动作库",
+        "iconPath": "images/tab-exercise.png",
+        "selectedIconPath": "images/tab-exercise-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "van-button": "/miniprogram_npm/@vant/weapp/button/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+    "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
+    "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/field/index",
+    "van-radio": "/miniprogram_npm/@vant/weapp/radio/index",
+    "van-radio-group": "/miniprogram_npm/@vant/weapp/radio-group/index",
+    "van-stepper": "/miniprogram_npm/@vant/weapp/stepper/index",
+    "van-picker": "/miniprogram_npm/@vant/weapp/picker/index",
+    "van-popup": "/miniprogram_npm/@vant/weapp/popup/index",
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index",
+    "van-toast": "/miniprogram_npm/@vant/weapp/toast/index",
+    "van-notify": "/miniprogram_npm/@vant/weapp/notify/index",
+    "van-loading": "/miniprogram_npm/@vant/weapp/loading/index",
+    "van-empty": "/miniprogram_npm/@vant/weapp/empty/index",
+    "van-tag": "/miniprogram_npm/@vant/weapp/tag/index",
+    "van-progress": "/miniprogram_npm/@vant/weapp/progress/index",
+    "van-tabs": "/miniprogram_npm/@vant/weapp/tabs/index",
+    "van-tab": "/miniprogram_npm/@vant/weapp/tab/index",
+    "van-search": "/miniprogram_npm/@vant/weapp/search/index",
+    "van-dropdown-menu": "/miniprogram_npm/@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "/miniprogram_npm/@vant/weapp/dropdown-item/index",
+    "van-slider": "/miniprogram_npm/@vant/weapp/slider/index",
+    "van-switch": "/miniprogram_npm/@vant/weapp/switch/index",
+    "van-action-sheet": "/miniprogram_npm/@vant/weapp/action-sheet/index",
+    "van-datetime-picker": "/miniprogram_npm/@vant/weapp/datetime-picker/index",
+    "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
+    "van-image": "/miniprogram_npm/@vant/weapp/image/index",
+    "van-divider": "/miniprogram_npm/@vant/weapp/divider/index",
+    "van-grid": "/miniprogram_npm/@vant/weapp/grid/index",
+    "van-grid-item": "/miniprogram_npm/@vant/weapp/grid-item/index",
+    "van-nav-bar": "/miniprogram_npm/@vant/weapp/nav-bar/index",
+    "van-skeleton": "/miniprogram_npm/@vant/weapp/skeleton/index",
+    "van-count-down": "/miniprogram_npm/@vant/weapp/count-down/index",
+    "van-circular": "/miniprogram_npm/@vant/weapp/circular/index",
+    "van-card": "/miniprogram_npm/@vant/weapp/card/index",
+    "exercise-card": "/components/exercise-card/exercise-card",
+    "timer-component": "/components/timer/timer",
+    "stat-card": "/components/stat-card/stat-card",
+    "empty-state": "/components/empty-state/empty-state"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
