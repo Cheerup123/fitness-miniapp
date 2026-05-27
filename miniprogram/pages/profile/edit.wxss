@@ -1,0 +1,15 @@
+.container { padding: 24rpx; padding-bottom: 160rpx; }
+.card { background: #FFF; border-radius: 16rpx; padding: 24rpx 0; margin-bottom: 24rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04); }
+.section-title { font-size: 32rpx; font-weight: 600; color: #1A1A2E; padding: 0 32rpx 16rpx; }
+.goal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; padding: 0 32rpx; }
+.goal-item { display: flex; flex-direction: column; align-items: center; gap: 8rpx; padding: 24rpx; background: #F5F5FA; border-radius: 16rpx; border: 2rpx solid transparent; }
+.goal-item.active { background: rgba(255,107,53,0.08); border-color: #FF6B35; }
+.goal-icon { font-size: 48rpx; }
+.goal-label { font-size: 26rpx; color: #333; }
+.goal-item.active .goal-label { color: #FF6B35; font-weight: 600; }
+.level-options { display: flex; gap: 16rpx; padding: 0 32rpx; }
+.level-item { flex: 1; text-align: center; padding: 20rpx 0; background: #F5F5FA; border-radius: 12rpx; font-size: 28rpx; color: #666; border: 2rpx solid transparent; }
+.level-item.active { background: rgba(255,107,53,0.08); border-color: #FF6B35; color: #FF6B35; font-weight: 600; }
+.pref-row { display: flex; justify-content: space-between; align-items: center; padding: 16rpx 32rpx; }
+.pref-label { font-size: 28rpx; color: #333; }
+.submit-area { position: fixed; bottom: 0; left: 0; right: 0; padding: 24rpx 32rpx; padding-bottom: calc(24rpx + env(safe-area-inset-bottom)); background: #F5F5FA; }

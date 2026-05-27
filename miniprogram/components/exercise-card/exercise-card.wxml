@@ -1,0 +1,26 @@
+<view class="exercise-card" bindtap="onTap">
+  <view class="card-left">
+    <image class="exercise-image" src="{{exercise.demo_image_url || '/images/empty.png'}}" mode="aspectFill" lazy-load></image>
+    <view class="type-badge" wx:if="{{exercise.exercise_type}}">
+      <text>{{typeLabel}}</text>
+    </view>
+  </view>
+  <view class="card-content">
+    <view class="exercise-name">{{exercise.name}}</view>
+    <view class="exercise-name-en" wx:if="{{exercise.name_en}}">{{exercise.name_en}}</view>
+    <view class="exercise-meta">
+      <van-tag type="primary" size="medium" wx:if="{{exercise.difficulty}}">{{difficultyLabel}}</van-tag>
+      <van-tag type="success" size="medium" wx:if="{{exercise.equipment && exercise.equipment !== 'none'}}">{{equipmentLabel}}</van-tag>
+    </view>
+    <view class="exercise-parts" wx:if="{{exercise.bodyParts && exercise.bodyParts.length > 0}}">
+      <text class="part-tag" wx:for="{{exercise.bodyParts}}" wx:key="body_part_name" wx:if="{{index < 3}}">{{item.body_part_name}}</text>
+    </view>
+    <view class="exercise-info" wx:if="{{showSets && exercise.sets}}">
+      <text class="sets-info">{{exercise.sets}}组 × {{exercise.reps || '-'}}</text>
+      <text class="rest-info" wx:if="{{exercise.rest_sec}}">休息{{exercise.rest_sec}}秒</text>
+    </view>
+  </view>
+  <view class="card-arrow" wx:if="{{showArrow}}">
+    <van-icon name="arrow" color="#CCCCCC" size="36rpx" />
+  </view>
+</view>

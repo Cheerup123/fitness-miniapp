@@ -1,0 +1,63 @@
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.stat-icon {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 107, 53, 0.1);
+  border-radius: 16rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.stat-icon text {
+  font-size: 40rpx;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 4rpx;
+}
+
+.value-num {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.value-unit {
+  font-size: 24rpx;
+  margin-left: 6rpx;
+  color: #999999;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.stat-trend {
+  margin-top: 8rpx;
+}
+
+.trend-up {
+  font-size: 22rpx;
+  color: #4CAF50;
+}
+
+.trend-down {
+  font-size: 22rpx;
+  color: #F44336;
+}

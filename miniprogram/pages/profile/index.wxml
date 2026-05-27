@@ -1,0 +1,53 @@
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="profile-card">
+    <view class="profile-bg"></view>
+    <view class="profile-info">
+      <image class="avatar" src="{{userInfo.avatar_url || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <text class="nickname">{{userInfo.nickname || '健身达人'}}</text>
+      <view class="profile-tags">
+        <view class="profile-tag" wx:if="{{goalLabel}}">{{goalLabel}}</view>
+        <view class="profile-tag" wx:if="{{levelLabel}}">{{levelLabel}}</view>
+      </view>
+    </view>
+
+    <!-- 统计数据 -->
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-num">{{stats.totalWorkouts}}</text>
+        <text class="stat-label">训练次数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-num">{{stats.streakDays}}</text>
+        <text class="stat-label">连续天数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-num">{{stats.totalDuration}}</text>
+        <text class="stat-label">总时长(h)</text>
+      </view>
+    </view>
+
+    <view class="edit-btn" bindtap="goEdit">
+      <van-icon name="edit" size="32rpx" /> 编辑资料
+    </view>
+  </view>
+
+  <!-- 菜单列表 -->
+  <view class="menu-card card">
+    <view class="menu-item" wx:for="{{menuList}}" wx:key="title"
+          bindtap="onMenuTap" data-url="{{item.url}}">
+      <view class="menu-left">
+        <text class="menu-icon">{{item.icon}}</text>
+        <text class="menu-title">{{item.title}}</text>
+      </view>
+      <van-icon name="arrow" color="#CCC" size="20" />
+    </view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="about">
+    <text class="about-text">运动健身助手 v1.0</text>
+  </view>
+</view>

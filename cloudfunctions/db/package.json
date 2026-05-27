@@ -1,0 +1,9 @@
+{
+  "name": "db",
+  "version": "1.0.0",
+  "description": "数据库连接池模块",
+  "main": "index.js",
+  "dependencies": {
+    "mysql2": "^2.3.3"
+  }
+}

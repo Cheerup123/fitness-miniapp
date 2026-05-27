@@ -1,0 +1,53 @@
+<view class="summary-page">
+  <view class="celebration">
+    <text class="celebration-emoji">🎉</text>
+    <text class="celebration-title">训练完成！</text>
+    <text class="celebration-sub">太棒了，继续保持！</text>
+  </view>
+
+  <view class="stats-card">
+    <view class="stats-grid">
+      <view class="stat-block">
+        <text class="stat-icon">⏱️</text>
+        <text class="stat-num">{{duration}}</text>
+        <text class="stat-desc">训练时长</text>
+      </view>
+      <view class="stat-block">
+        <text class="stat-icon">💪</text>
+        <text class="stat-num">{{totalSets}}</text>
+        <text class="stat-desc">完成组数</text>
+      </view>
+      <view class="stat-block">
+        <text class="stat-icon">🏋️</text>
+        <text class="stat-num">{{totalVolume}}</text>
+        <text class="stat-desc">训练量(kg)</text>
+      </view>
+      <view class="stat-block">
+        <text class="stat-icon">🔥</text>
+        <text class="stat-num">{{calories}}</text>
+        <text class="stat-desc">消耗(kcal)</text>
+      </view>
+    </view>
+
+    <view class="feeling-display" wx:if="{{feelingScore}}">
+      <text>训练感受：</text>
+      <text wx:if="{{feelingScore === 1}}">😊 很轻松</text>
+      <text wx:elif="{{feelingScore === 2}}">🙂 轻松</text>
+      <text wx:elif="{{feelingScore === 3}}">😐 适中</text>
+      <text wx:elif="{{feelingScore === 4}}">😤 吃力</text>
+      <text wx:elif="{{feelingScore === 5}}">🤯 力竭</text>
+    </view>
+  </view>
+
+  <view class="actions">
+    <van-button type="primary" block round
+                custom-style="background: linear-gradient(135deg, #FF6B35, #FF8F65); border: none; height: 88rpx; margin-bottom: 24rpx;"
+                bindtap="goHome">返回首页</van-button>
+    <van-button plain block round
+                custom-style="color: #FF6B35; border-color: #FF6B35; height: 88rpx; margin-bottom: 24rpx;"
+                bindtap="goBodyRecord">记录体重</van-button>
+    <van-button plain block round
+                custom-style="color: #666; border-color: #ddd; height: 88rpx;"
+                bindtap="goHistory">查看历史</van-button>
+  </view>
+</view>

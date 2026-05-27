@@ -1,0 +1,22 @@
+.container { padding: 0 0 40rpx; }
+.profile-card { position: relative; background: #FFF; padding-bottom: 32rpx; margin-bottom: 24rpx; }
+.profile-bg { height: 240rpx; background: linear-gradient(135deg, #FF6B35, #FF8F65); }
+.profile-info { display: flex; flex-direction: column; align-items: center; margin-top: -80rpx; }
+.avatar { width: 160rpx; height: 160rpx; border-radius: 50%; border: 6rpx solid #FFF; box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1); }
+.nickname { font-size: 36rpx; font-weight: 700; color: #1A1A2E; margin-top: 16rpx; }
+.profile-tags { display: flex; gap: 12rpx; margin-top: 12rpx; }
+.profile-tag { padding: 6rpx 20rpx; border-radius: 20rpx; background: rgba(255,107,53,0.1); font-size: 24rpx; color: #FF6B35; }
+.stats-row { display: flex; justify-content: space-around; align-items: center; padding: 32rpx 24rpx 0; }
+.stat-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.stat-num { font-size: 40rpx; font-weight: 700; color: #FF6B35; }
+.stat-label { font-size: 22rpx; color: #999; margin-top: 4rpx; }
+.stat-divider { width: 1rpx; height: 48rpx; background: #EEEEEE; }
+.edit-btn { display: flex; align-items: center; justify-content: center; gap: 8rpx; margin: 24rpx 32rpx 0; padding: 16rpx 0; border: 2rpx solid #FF6B35; border-radius: 12rpx; font-size: 28rpx; color: #FF6B35; }
+.menu-card { padding: 0 32rpx; }
+.menu-item { display: flex; justify-content: space-between; align-items: center; padding: 28rpx 0; border-bottom: 1rpx solid #F5F5FA; }
+.menu-item:last-child { border-bottom: none; }
+.menu-left { display: flex; align-items: center; gap: 20rpx; }
+.menu-icon { font-size: 36rpx; }
+.menu-title { font-size: 30rpx; color: #333; }
+.about { text-align: center; padding: 48rpx; }
+.about-text { font-size: 24rpx; color: #CCC; }

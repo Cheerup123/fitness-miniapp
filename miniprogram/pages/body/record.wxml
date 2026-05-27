@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 日期选择 -->
+  <view class="card">
+    <van-field label="日期" value="{{recordDate}}" placeholder="选择日期" readonly
+               bindtap="onDateChange" right-icon="arrow" />
+  </view>
+
+  <!-- 核心数据 -->
+  <view class="card">
+    <view class="section-title">📊 核心数据</view>
+    <van-cell-group>
+      <van-field label="体重(kg)" type="digit" value="{{weight}}" placeholder="如 70.5"
+                 bindinput="onWeightInput" />
+      <van-field label="体脂率(%)" type="digit" value="{{bodyFat}}" placeholder="如 18.5"
+                 bindinput="onBodyFatInput" />
+      <van-field label="肌肉量(kg)" type="digit" value="{{muscleMass}}" placeholder="如 35.2"
+                 bindinput="onMuscleMassInput" />
+      <van-field label="BMI" value="{{bmi}}" placeholder="自动计算" disabled />
+    </van-cell-group>
+  </view>
+
+  <!-- 体围数据 -->
+  <view class="card">
+    <view class="section-title" bindtap="onToggleBodyParts">
+      <text>📏 体围数据</text>
+      <van-icon name="{{showBodyParts ? 'arrow-up' : 'arrow-down'}}" />
+    </view>
+    <van-cell-group wx:if="{{showBodyParts}}">
+      <van-field label="胸围(cm)" type="digit" value="{{chest}}" placeholder="如 95"
+                 bindinput="onChestInput" />
+      <van-field label="腰围(cm)" type="digit" value="{{waist}}" placeholder="如 78"
+                 bindinput="onWaistInput" />
+      <van-field label="臀围(cm)" type="digit" value="{{hip}}" placeholder="如 98"
+                 bindinput="onHipInput" />
+      <van-field label="左臂围(cm)" type="digit" value="{{leftArm}}" placeholder="如 32"
+                 bindinput="onLeftArmInput" />
+      <van-field label="右臂围(cm)" type="digit" value="{{rightArm}}" placeholder="如 32"
+                 bindinput="onRightArmInput" />
+      <van-field label="左大腿围(cm)" type="digit" value="{{leftThigh}}" placeholder="如 55"
+                 bindinput="onLeftThighInput" />
+      <van-field label="右大腿围(cm)" type="digit" value="{{rightThigh}}" placeholder="如 55"
+                 bindinput="onRightThighInput" />
+    </van-cell-group>
+  </view>
+
+  <!-- 备注 -->
+  <view class="card">
+    <van-field type="textarea" label="备注" value="{{note}}" placeholder="今天的感受..."
+               bindinput="onNoteInput" maxlength="200" show-word-limit />
+  </view>
+
+  <!-- 提交 -->
+  <view class="submit-area">
+    <van-button type="primary" block round
+                custom-style="background: linear-gradient(135deg, #FF6B35, #FF8F65); border: none; height: 88rpx;"
+                bindtap="onSubmit">保存记录</van-button>
+  </view>
+</view>

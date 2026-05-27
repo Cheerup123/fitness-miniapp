@@ -1,0 +1,75 @@
+<view class="container">
+  <!-- 月度统计 -->
+  <view class="month-stats card">
+    <view class="section-title">{{currentMonth}}</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-value">{{monthStats.count}}</text>
+        <text class="stat-label">训练次数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{monthStats.duration}}</text>
+        <text class="stat-label">总时长(分钟)</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{monthStats.volume}}</text>
+        <text class="stat-label">总训练量(kg)</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 训练列表 -->
+  <view class="history-list">
+    <view class="history-item card" wx:for="{{list}}" wx:key="id" bindtap="onTapItem" data-id="{{item.id}}">
+      <view class="item-header">
+        <view class="item-date">
+          <text class="date-day">{{item.dateStr}}</text>
+          <text class="date-week">{{item.dayOfWeek}}</text>
+        </view>
+        <van-tag type="success" size="medium" round>完成</van-tag>
+      </view>
+      <view class="item-stats">
+        <view class="item-stat">
+          <text class="item-stat-icon">⏱️</text>
+          <text class="item-stat-value">{{item.durationStr}}</text>
+        </view>
+        <view class="item-stat">
+          <text class="item-stat-icon">🏋️</text>
+          <text class="item-stat-value">{{item.total_sets || 0}}组</text>
+        </view>
+        <view class="item-stat">
+          <text class="item-stat-icon">📊</text>
+          <text class="item-stat-value">{{item.volumeStr}}</text>
+        </view>
+        <view class="item-stat" wx:if="{{item.estimated_calories}}">
+          <text class="item-stat-icon">🔥</text>
+          <text class="item-stat-value">{{item.estimated_calories}}kcal</text>
+        </view>
+      </view>
+      <view class="item-feeling" wx:if="{{item.feeling_score}}">
+        <text>训练感受：</text>
+        <text wx:if="{{item.feeling_score === 1}}">😊 很轻松</text>
+        <text wx:elif="{{item.feeling_score === 2}}">🙂 轻松</text>
+        <text wx:elif="{{item.feeling_score === 3}}">😐 适中</text>
+        <text wx:elif="{{item.feeling_score === 4}}">😤 吃力</text>
+        <text wx:elif="{{item.feeling_score === 5}}">🤯 力竭</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-more" wx:if="{{loading}}">
+    <van-loading type="spinner" color="#FF6B35" size="24px">加载中...</van-loading>
+  </view>
+
+  <!-- 空状态 -->
+  <van-empty wx:if="{{list.length === 0 && !loading}}" image="search" description="暂无训练记录">
+    <van-button round type="primary" custom-style="background: #FF6B35; border: none;" bindtap="goPlanList">
+      开始训练
+    </van-button>
+  </van-empty>
+
+  <view class="no-more" wx:if="{{!hasMore && list.length > 0}}">
+    <text>— 没有更多了 —</text>
+  </view>
+</view>
