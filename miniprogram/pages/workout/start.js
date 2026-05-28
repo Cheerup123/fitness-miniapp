@@ -138,11 +138,11 @@ Page({
 
   // 重量/次数输入
   onWeightInput(e) {
-    this.setData({ weightInput: e.detail });
+    this.setData({ weightInput: e.detail.value });
   },
 
   onRepsInput(e) {
-    this.setData({ repsInput: e.detail });
+    this.setData({ repsInput: e.detail.value });
   },
 
   onSetTypeChange(e) {

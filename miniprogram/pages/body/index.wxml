@@ -48,7 +48,7 @@
         <polyline points="{{chartPoints}}" fill="none" stroke="#FF6B35" stroke-width="3" stroke-linejoin="round"/>
         <!-- 数据点 -->
         <circle wx:for="{{chartValues}}" wx:key="index"
-                cx="{{40 + index * (chartWidth - 80) / (chartValues.length - 1)}}"
+                cx="{{chartValues.length === 1 ? chartWidth / 2 : 40 + index * (chartWidth - 80) / (chartValues.length - 1)}}"
                 cy="{{chartHeight - 40 - (item - minValue) / (maxValue - minValue || 1) * (chartHeight - 80)}}"
                 r="5" fill="#FF6B35" stroke="#FFF" stroke-width="2"/>
       </svg>

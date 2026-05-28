@@ -73,7 +73,7 @@ exports.main = async (event, context) => {
          JOIN exercise e ON e.id = wle.exercise_id
          LEFT JOIN workout_log_set wls ON wls.log_exercise_id = wle.id AND wls.is_completed = 1
          WHERE wle.workout_log_id IN (${placeholders})
-         GROUP BY wle.workout_log_id, e.name
+         GROUP BY wle.workout_log_id, e.name, wle.sort_order
          ORDER BY wle.sort_order`,
         logIds
       );

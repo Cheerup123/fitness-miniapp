@@ -35,19 +35,44 @@ Page({
   async loadData() {
     this.setData({ loading: true });
     try {
-      const res = await callFunction('body-stats', { days: 90 });
-      if (res) {
-        const records = (res.records || []).map(r => ({
-          ...r,
-          dateStr: util.formatDate(new Date(r.record_date))
+      // callFunction 直接返回 data 对象，不是 {code, data} 结构
+      const data = await callFunction('body-stats', { days: 90 });
+      console.log('body-stats data:', data);
+      
+      // 根据当前指标获取对应趋势数据
+      let records = [];
+      const metric = this.data.currentMetric;
+      
+      if (metric === 'weight' && data.weightTrend) {
+        records = data.weightTrend.map(t => ({
+          record_date: t.date,
+          weight_kg: t.value,
+          dateStr: util.formatDate(new Date(t.date))
         }));
-        this.setData({
-          records,
-          latestRecord: records.length > 0 ? records[records.length - 1] : null,
-          loading: false
-        });
-        this.buildChart(records);
+      } else if (metric === 'body_fat' && data.fatTrend) {
+        records = data.fatTrend.map(t => ({
+          record_date: t.date,
+          body_fat_pct: t.value,
+          dateStr: util.formatDate(new Date(t.date))
+        }));
+      } else if (metric === 'muscle' && data.muscleTrend) {
+        records = data.muscleTrend.map(t => ({
+          record_date: t.date,
+          muscle_mass_kg: t.value,
+          dateStr: util.formatDate(new Date(t.date))
+        }));
+      } else if (metric === 'bmi') {
+        // BMI 需要根据体重和身高计算，如果没有身高则无法计算
+        records = []; // 暂时为空，需要后端支持
       }
+      
+      console.log('metric:', metric, 'records:', records);
+      this.setData({
+        records,
+        latestRecord: data.latest || null,
+        loading: false
+      });
+      this.buildChart(records);
     } catch (err) {
       this.setData({ loading: false });
       showToast(err.message || '加载失败');
@@ -57,7 +82,7 @@ Page({
   onMetricChange(e) {
     const key = e.currentTarget.dataset.key;
     this.setData({ currentMetric: key });
-    this.buildChart(this.data.records);
+    this.loadData(); // 重新加载数据以获取对应指标的趋势
   },
 
   buildChart(records) {
@@ -83,13 +108,21 @@ Page({
     const padding = 40;
     const w = this.data.chartWidth;
     const h = this.data.chartHeight;
-    const stepX = data.length > 1 ? (w - padding * 2) / (data.length - 1) : 0;
 
-    const points = data.map((d, i) => {
-      const x = padding + i * stepX;
-      const y = h - padding - ((values[i] - min) / range) * (h - padding * 2);
-      return `${x},${y}`;
-    }).join(' ');
+    // 单条数据时居中显示，多条数据时均匀分布
+    let points = '';
+    if (data.length === 1) {
+      const x = w / 2;
+      const y = h - padding - ((values[0] - min) / range) * (h - padding * 2);
+      points = `${x},${y}`;
+    } else {
+      const stepX = (w - padding * 2) / (data.length - 1);
+      points = data.map((d, i) => {
+        const x = padding + i * stepX;
+        const y = h - padding - ((values[i] - min) / range) * (h - padding * 2);
+        return `${x},${y}`;
+      }).join(' ');
+    }
 
     this.setData({
       chartPoints: points,

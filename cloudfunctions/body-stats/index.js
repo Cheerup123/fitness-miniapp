@@ -51,6 +51,15 @@ exports.main = async (event, context) => {
       [userId, days]
     );
 
+    // 获取肌肉量变化趋势
+    const [muscleTrend] = await pool.execute(
+      `SELECT record_date, muscle_mass_kg FROM body_metric 
+       WHERE user_id = ? AND muscle_mass_kg IS NOT NULL
+       AND record_date >= DATE_SUB(CURDATE(), INTERVAL ? DAY)
+       ORDER BY record_date ASC`,
+      [userId, days]
+    );
+
     // 获取体围变化趋势
     const [circumferenceTrend] = await pool.execute(
       `SELECT record_date, chest_cm, waist_cm, hip_cm, left_arm_cm, right_arm_cm, left_thigh_cm, right_thigh_cm
@@ -105,6 +114,10 @@ exports.main = async (event, context) => {
         fatTrend: fatTrend.map(f => ({
           date: f.record_date,
           value: parseFloat(f.body_fat_pct)
+        })),
+        muscleTrend: muscleTrend.map(m => ({
+          date: m.record_date,
+          value: parseFloat(m.muscle_mass_kg)
         })),
         circumferenceTrend,
         totalRecords: metrics.length

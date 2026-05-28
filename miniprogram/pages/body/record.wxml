@@ -2,8 +2,19 @@
   <!-- 日期选择 -->
   <view class="card">
     <van-field label="日期" value="{{recordDate}}" placeholder="选择日期" readonly
-               bindtap="onDateChange" right-icon="arrow" />
+               bindtap="onShowDatePicker" right-icon="arrow" />
   </view>
+
+  <!-- 日期选择弹窗 -->
+  <van-popup show="{{showDatePicker}}" position="bottom" bind:close="onCloseDatePicker">
+    <van-datetime-picker
+      type="date"
+      value="{{pickerDate}}"
+      max-date="{{maxDate}}"
+      bind:confirm="onDateConfirm"
+      bind:cancel="onCloseDatePicker"
+    />
+  </van-popup>
 
   <!-- 核心数据 -->
   <view class="card">
