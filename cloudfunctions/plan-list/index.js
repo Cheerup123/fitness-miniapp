@@ -14,36 +14,35 @@ exports.main = async (event, context) => {
       'SELECT id FROM user WHERE openid = ?',
       [OPENID]
     );
-    const userId = users.length > 0 ? users[0].id : null;
+    const userId = users.length > 0 ? Number(users[0].id) : null;
 
     let sql = '';
     let params = [];
 
+    // 构建基础查询
+    let whereClause = 'WHERE status = 1';
+    
     if (type === 'my' && userId) {
       // 我的计划：用户创建的
-      sql = `SELECT * FROM workout_plan WHERE created_by = ? AND status = 1 ORDER BY created_at DESC`;
+      whereClause += ` AND created_by = ?`;
       params = [userId];
     } else if (type === 'system') {
       // 系统预设计划
-      sql = `SELECT * FROM workout_plan WHERE is_system = 1 AND status = 1`;
-      params = [];
-    } else {
-      // 全部计划
-      sql = `SELECT * FROM workout_plan WHERE status = 1`;
+      whereClause += ` AND is_system = 1`;
       params = [];
     }
 
     // 可选筛选条件
     if (fitnessGoal) {
-      sql += ` AND fitness_goal = ?`;
+      whereClause += ` AND fitness_goal = ?`;
       params.push(fitnessGoal);
     }
     if (difficultyLevel) {
-      sql += ` AND difficulty_level = ?`;
+      whereClause += ` AND difficulty_level = ?`;
       params.push(difficultyLevel);
     }
 
-    sql += ` ORDER BY is_system DESC, created_at DESC`;
+    sql = `SELECT * FROM workout_plan ${whereClause} ORDER BY is_system DESC, created_at DESC`;
 
     const [plans] = await pool.execute(sql, params);
 

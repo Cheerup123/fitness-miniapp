@@ -34,7 +34,7 @@
   text-align: center;
 }
 
-.type-badge text {
+.type-badge-text {
   font-size: 20rpx;
   color: #FFFFFF;
 }

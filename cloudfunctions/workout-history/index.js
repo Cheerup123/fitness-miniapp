@@ -5,7 +5,9 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 exports.main = async (event, context) => {
   const { OPENID } = cloud.getWXContext();
-  const { page = 1, pageSize = 20, startDate, endDate, status = 'completed' } = event;
+  const { startDate, endDate, status = 'completed' } = event;
+  const page = parseInt(event.page) || 1;
+  const pageSize = parseInt(event.pageSize) || 20;
   const pool = getPool();
 
   try {
@@ -17,7 +19,7 @@ exports.main = async (event, context) => {
     if (users.length === 0) {
       return { code: -1, message: '用户不存在' };
     }
-    const userId = users[0].id;
+    const userId = Number(users[0].id);
 
     // 构建查询条件
     let whereClause = 'WHERE wl.user_id = ?';
@@ -41,11 +43,11 @@ exports.main = async (event, context) => {
       `SELECT COUNT(*) as total FROM workout_log wl ${whereClause}`,
       params
     );
-    const total = countResult[0].total;
+    const total = Number(countResult[0].total);
 
     // 分页查询
     const offset = (page - 1) * pageSize;
-    const queryParams = [...params, pageSize, offset];
+    const limit = Number(pageSize);
 
     const [logs] = await pool.execute(
       `SELECT wl.*, wp.name as plan_name
@@ -53,12 +55,12 @@ exports.main = async (event, context) => {
        LEFT JOIN workout_plan wp ON wp.id = wl.plan_id
        ${whereClause}
        ORDER BY wl.workout_date DESC, wl.start_time DESC
-       LIMIT ? OFFSET ?`,
-      queryParams
+       LIMIT ${limit} OFFSET ${offset}`,
+      params
     );
 
     // 获取每条记录的动作列表
-    const logIds = logs.map(l => l.id);
+    const logIds = logs.map(l => Number(l.id));
     let exercisesByLog = {};
 
     if (logIds.length > 0) {
@@ -71,7 +73,7 @@ exports.main = async (event, context) => {
          JOIN exercise e ON e.id = wle.exercise_id
          LEFT JOIN workout_log_set wls ON wls.log_exercise_id = wle.id AND wls.is_completed = 1
          WHERE wle.workout_log_id IN (${placeholders})
-         GROUP BY wle.workout_log_id, e.name
+         GROUP BY wle.workout_log_id, e.name, wle.sort_order
          ORDER BY wle.sort_order`,
         logIds
       );
@@ -86,6 +88,7 @@ exports.main = async (event, context) => {
 
     const result = logs.map(log => ({
       ...log,
+      id: Number(log.id),
       exercises: exercisesByLog[log.id] || []
     }));
 

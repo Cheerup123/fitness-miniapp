@@ -47,6 +47,7 @@ exports.main = async (event, context) => {
       );
 
       if (users.length > 0) {
+        const userId = Number(users[0].id);
         const [records] = await pool.execute(
           `SELECT wls.weight_kg, wls.reps, wls.set_number, wl.workout_date
            FROM workout_log_set wls
@@ -55,7 +56,7 @@ exports.main = async (event, context) => {
            WHERE wle.exercise_id = ? AND wl.user_id = ? AND wls.is_completed = 1
            ORDER BY wl.workout_date DESC, wls.set_number DESC
            LIMIT 20`,
-          [exerciseId, users[0].id]
+          [exerciseId, userId]
         );
         history = records;
       }

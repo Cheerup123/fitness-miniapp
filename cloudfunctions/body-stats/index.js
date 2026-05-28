@@ -17,7 +17,7 @@ exports.main = async (event, context) => {
     if (users.length === 0) {
       return { code: -1, message: '用户不存在' };
     }
-    const userId = users[0].id;
+    const userId = Number(users[0].id);
 
     // 获取最近N天的身体数据
     const [metrics] = await pool.execute(
@@ -46,6 +46,15 @@ exports.main = async (event, context) => {
     const [fatTrend] = await pool.execute(
       `SELECT record_date, body_fat_pct FROM body_metric 
        WHERE user_id = ? AND body_fat_pct IS NOT NULL
+       AND record_date >= DATE_SUB(CURDATE(), INTERVAL ? DAY)
+       ORDER BY record_date ASC`,
+      [userId, days]
+    );
+
+    // 获取肌肉量变化趋势
+    const [muscleTrend] = await pool.execute(
+      `SELECT record_date, muscle_mass_kg FROM body_metric 
+       WHERE user_id = ? AND muscle_mass_kg IS NOT NULL
        AND record_date >= DATE_SUB(CURDATE(), INTERVAL ? DAY)
        ORDER BY record_date ASC`,
       [userId, days]
@@ -105,6 +114,10 @@ exports.main = async (event, context) => {
         fatTrend: fatTrend.map(f => ({
           date: f.record_date,
           value: parseFloat(f.body_fat_pct)
+        })),
+        muscleTrend: muscleTrend.map(m => ({
+          date: m.record_date,
+          value: parseFloat(m.muscle_mass_kg)
         })),
         circumferenceTrend,
         totalRecords: metrics.length

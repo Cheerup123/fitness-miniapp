@@ -4,6 +4,9 @@ const util = require('../../utils/util');
 Page({
   data: {
     recordDate: '',
+    pickerDate: new Date().getTime(),
+    maxDate: new Date().getTime(),
+    showDatePicker: false,
     weight: '',
     bodyFat: '',
     muscleMass: '',
@@ -20,11 +23,29 @@ Page({
   },
 
   onLoad() {
-    this.setData({ recordDate: util.formatDate(new Date()) });
+    const now = new Date();
+    this.setData({
+      recordDate: util.formatDate(now),
+      pickerDate: now.getTime(),
+      maxDate: now.getTime()
+    });
   },
 
-  onDateChange(e) {
-    this.setData({ recordDate: e.detail });
+  onShowDatePicker() {
+    this.setData({ showDatePicker: true });
+  },
+
+  onCloseDatePicker() {
+    this.setData({ showDatePicker: false });
+  },
+
+  onDateConfirm(e) {
+    const date = new Date(e.detail);
+    this.setData({
+      recordDate: util.formatDate(date),
+      pickerDate: e.detail,
+      showDatePicker: false
+    });
   },
 
   onWeightInput(e) {

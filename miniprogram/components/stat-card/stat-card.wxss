@@ -18,7 +18,7 @@
   flex-shrink: 0;
 }
 
-.stat-icon text {
+.stat-icon-text {
   font-size: 40rpx;
 }
 
