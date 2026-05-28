@@ -56,24 +56,69 @@ Page({
   async loadTodayPlan() {
     try {
       const plans = await callFunction('plan-list', { type: 'all' });
-      if (plans && plans.length > 0) {
-        // 获取第一个计划的详情
-        const detail = await callFunction('plan-detail', { planId: plans[0].id });
-        if (detail && detail.days) {
-          const today = new Date();
-          const dayOfWeek = today.getDay() || 7; // 1-7
+      if (!plans || plans.length === 0) return;
+
+      const today = new Date();
+      const dayOfWeek = today.getDay() || 7; // 1-7 (周一=1, 周日=7)
+
+      // 优先查找用户自己的计划，然后是系统计划
+      const sortedPlans = [...plans].sort((a, b) => {
+        if (a.is_system === b.is_system) return 0;
+        return a.is_system ? 1 : -1; // 用户计划优先
+      });
+
+      for (const plan of sortedPlans) {
+        try {
+          const detail = await callFunction('plan-detail', { planId: plan.id });
+          if (!detail || !detail.days) continue;
+
           const todayDay = detail.days.find(d => d.day_of_week === dayOfWeek && !d.is_rest_day);
           
           if (todayDay) {
             this.setData({
               todayPlan: {
-                planId: plans[0].id,
+                planId: plan.id,
                 planName: detail.plan.name,
                 dayLabel: todayDay.day_label || '训练日',
                 exercises: todayDay.exercises || []
               }
             });
+            return;
           }
+        } catch (err) {
+          console.error(`加载计划 ${plan.id} 详情失败:`, err);
+          continue;
+        }
+      }
+
+      // 所有计划今天都是休息日，找下一个最近的训练日
+      for (const plan of sortedPlans.slice(0, 3)) {
+        try {
+          const detail = await callFunction('plan-detail', { planId: plan.id });
+          if (!detail || !detail.days) continue;
+
+          const trainingDays = detail.days.filter(d => !d.is_rest_day).sort((a, b) => {
+            let diffA = a.day_of_week - dayOfWeek;
+            let diffB = b.day_of_week - dayOfWeek;
+            if (diffA <= 0) diffA += 7;
+            if (diffB <= 0) diffB += 7;
+            return diffA - diffB;
+          });
+
+          if (trainingDays.length > 0) {
+            const nextDay = trainingDays[0];
+            this.setData({
+              todayPlan: {
+                planId: plan.id,
+                planName: detail.plan.name + ' (下次)',
+                dayLabel: nextDay.day_label || '训练日',
+                exercises: nextDay.exercises || []
+              }
+            });
+            return;
+          }
+        } catch (err) {
+          continue;
         }
       }
     } catch (err) {
