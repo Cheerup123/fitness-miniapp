@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
     if (users.length === 0) {
       return { code: -1, message: '用户不存在' };
     }
-    const userId = users[0].id;
+    const userId = Number(users[0].id);
     const heightCm = users[0].height_cm;
 
     // 自动计算BMI

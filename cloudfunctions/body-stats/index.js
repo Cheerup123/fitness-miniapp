@@ -17,7 +17,7 @@ exports.main = async (event, context) => {
     if (users.length === 0) {
       return { code: -1, message: '用户不存在' };
     }
-    const userId = users[0].id;
+    const userId = Number(users[0].id);
 
     // 获取最近N天的身体数据
     const [metrics] = await pool.execute(

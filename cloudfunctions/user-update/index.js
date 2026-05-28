@@ -18,7 +18,7 @@ exports.main = async (event, context) => {
       return { code: -1, message: '用户不存在' };
     }
 
-    const userId = users[0].id;
+    const userId = Number(users[0].id);
     const allowedFields = [
       'nickname', 'avatar_url', 'gender', 'birthday',
       'height_cm', 'current_weight_kg', 'target_weight_kg',

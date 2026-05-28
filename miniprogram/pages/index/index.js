@@ -20,8 +20,8 @@ Page({
     this.initWeekDates();
   },
 
-  onShow() {
-    this.loadUserInfo();
+  async onShow() {
+    await this.loadUserInfo();
     this.loadTodayPlan();
     this.loadStats();
     this.loadCheckinStatus();
@@ -120,15 +120,14 @@ Page({
 
   async loadCheckinStatus() {
     try {
-      const today = util.formatDate(new Date());
-      // 通过查询本周打卡情况判断
       const weekDates = this.data.weekDates;
       const todayItem = weekDates.find(d => d.isToday);
-      this.setData({ 
-        todayCheckedIn: todayItem ? todayItem.checked : false 
+      this.setData({
+        todayCheckedIn: todayItem ? (todayItem.checked || false) : false
       });
     } catch (err) {
       console.error('加载打卡状态失败:', err);
+      this.setData({ todayCheckedIn: false });
     }
   },
 

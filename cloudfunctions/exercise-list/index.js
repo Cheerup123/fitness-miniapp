@@ -4,7 +4,9 @@ const { getPool } = require('./db');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 exports.main = async (event, context) => {
-  const { keyword, bodyPartId, exerciseType, equipment, difficulty, page = 1, pageSize = 20 } = event;
+  const { keyword, bodyPartId, exerciseType, equipment, difficulty } = event;
+  const page = parseInt(event.page) || 1;
+  const pageSize = parseInt(event.pageSize) || 20;
   const pool = getPool();
 
   try {
@@ -49,7 +51,7 @@ exports.main = async (event, context) => {
       `SELECT COUNT(*) as total FROM exercise e ${whereClause}`,
       params
     );
-    const total = countResult[0].total;
+    const total = Number(countResult[0].total);
 
     // 分页查询
     const offset = (page - 1) * pageSize;
@@ -60,11 +62,11 @@ exports.main = async (event, context) => {
        ${whereClause}
        ORDER BY e.is_compound DESC, e.name
        LIMIT ? OFFSET ?`,
-      [...params, pageSize, offset]
+      [...params, Number(pageSize), Number(offset)]
     );
 
     // 获取每个动作的目标肌群
-    const exIds = exercises.map(e => e.id);
+    const exIds = exercises.map(e => Number(e.id));
     let bodyPartsMap = {};
 
     if (exIds.length > 0) {

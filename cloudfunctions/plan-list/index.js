@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
       'SELECT id FROM user WHERE openid = ?',
       [OPENID]
     );
-    const userId = users.length > 0 ? users[0].id : null;
+    const userId = users.length > 0 ? Number(users[0].id) : null;
 
     let sql = '';
     let params = [];
