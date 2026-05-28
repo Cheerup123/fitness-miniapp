@@ -1,5 +1,5 @@
 const cloud = require('wx-server-sdk');
-const { getPool } = require('../db');
+const { getPool } = require('./db');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 

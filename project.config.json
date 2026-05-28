@@ -36,13 +36,24 @@
     "disableUseStrict": false,
     "minifyWXML": true,
     "showES6CompileOption": false,
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
-  "appid": "your-appid-here",
+  "appid": "wx8782af9f11946d31",
   "projectname": "fitness-miniapp",
   "description": "运动健身助手小程序",
   "libVersion": "2.25.0",
   "compileType": "miniprogram",
-  "cloudfunctionTemplateRoot": "",
-  "condition": {}
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {}
 }

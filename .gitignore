@@ -15,9 +15,12 @@ package-lock.json
 # 微信开发者工具
 miniprogram/config.local.js
 project.private.config.json
+skills-lock.json
 
 .idea/
 .vscode/
+.agents/
+.claude/
 *.swp
 *.swo
 

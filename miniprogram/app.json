@@ -81,7 +81,7 @@
     "van-nav-bar": "/miniprogram_npm/@vant/weapp/nav-bar/index",
     "van-skeleton": "/miniprogram_npm/@vant/weapp/skeleton/index",
     "van-count-down": "/miniprogram_npm/@vant/weapp/count-down/index",
-    "van-circular": "/miniprogram_npm/@vant/weapp/circular/index",
+    "van-circle": "/miniprogram_npm/@vant/weapp/circle/index",
     "van-card": "/miniprogram_npm/@vant/weapp/card/index",
     "exercise-card": "/components/exercise-card/exercise-card",
     "timer-component": "/components/timer/timer",
