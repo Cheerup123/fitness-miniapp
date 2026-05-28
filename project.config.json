@@ -48,7 +48,7 @@
   "description": "运动健身助手小程序",
   "libVersion": "2.25.0",
   "compileType": "miniprogram",
-  "cloudfunctionTemplateRoot": "",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {},
   "simulatorPluginLibVersion": {},
   "packOptions": {
