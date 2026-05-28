@@ -16,7 +16,10 @@
     "pages/profile/edit",
     "pages/profile/pr-records",
     "pages/profile/favorites",
-    "pages/profile/achievements"
+    "pages/profile/achievements",
+    "pages/ai/chat",
+    "pages/ai/plan-generator",
+    "pages/ai/profile-edit"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -36,6 +39,12 @@
         "text": "首页",
         "iconPath": "images/tab-home.png",
         "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/ai/chat",
+        "text": "AI助手",
+        "iconPath": "images/tab-ai.png",
+        "selectedIconPath": "images/tab-ai-active.png"
       },
       {
         "pagePath": "pages/exercise/list",

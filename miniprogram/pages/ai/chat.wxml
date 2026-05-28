@@ -1,0 +1,39 @@
+<view class="container">
+  <scroll-view class="chat-list" scroll-y bindscrolltoupper="loadMore" scroll-top="{{scrollTop}}">
+    <view class="date-header" wx:if="{{showDateHeader}}">{{dateHeader}}</view>
+
+    <view class="message-list">
+      <view class="message {{msg.role}}" wx:for="{{messages}}" wx:for-item="msg" wx:key="id">
+        <view class="avatar">
+          <image wx:if="{{msg.role === 'assistant'}}" src="/images/logo.png" mode="aspectFit"/>
+          <view wx:else class="user-avatar">{{userAvatar}}</view>
+        </view>
+        <view class="message-content">
+          <view class="message-text">{{msg.content}}</view>
+          <view class="message-time">{{msg.timeStr}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="loading-tip" wx:if="{{loading}}">
+      <text>AI助手正在思考...</text>
+    </view>
+  </scroll-view>
+
+  <view class="quick-actions" wx:if="{{messages.length === 0}}">
+    <view class="quick-title">试试这样问我：</view>
+    <view class="quick-btns">
+      <view class="quick-btn" bindtap="onQuickTap" data-q="增肌应该怎么吃">增肌应该怎么吃</view>
+      <view class="quick-btn" bindtap="onQuickTap" data-q="新手健身计划">新手健身计划</view>
+      <view class="quick-btn" bindtap="onQuickTap" data-q="卧推动作要领">卧推动作要领</view>
+      <view class="quick-btn" bindtap="onQuickTap" data-q="训练后怎么恢复">训练后怎么恢复</view>
+    </view>
+  </view>
+
+  <view class="input-area">
+    <view class="input-wrapper">
+      <input class="chat-input" value="{{inputText}}" bindinput="onInput" bindconfirm="onSend" confirm-type="send" placeholder="输入健身问题..." />
+      <button class="send-btn {{inputText ? 'active' : ''}}" bindtap="onSend" disabled="{{!inputText || loading}}">发送</button>
+    </view>
+  </view>
+</view>

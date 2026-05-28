@@ -1,0 +1,73 @@
+<view class="container">
+  <view class="section">
+    <view class="section-title">基础信息</view>
+
+    <view class="form-item">
+      <view class="form-label">健身水平</view>
+      <van-radio-group value="{{fitnessLevel}}" bind:change="onLevelChange" direction="horizontal">
+        <van-radio name="beginner" icon-size="16px">新手</van-radio>
+        <van-radio name="intermediate" icon-size="16px">进阶</van-radio>
+        <van-radio name="advanced" icon-size="16px">高级</van-radio>
+      </van-radio-group>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">主要目标</view>
+      <van-radio-group value="{{primaryGoal}}" bind:change="onGoalChange" direction="horizontal">
+        <van-radio name="gain_muscle" icon-size="16px">增肌</van-radio>
+        <van-radio name="lose_fat" icon-size="16px">减脂</van-radio>
+        <van-radio name="keep_fit" icon-size="16px">塑形</van-radio>
+        <van-radio name="strength" icon-size="16px">力量</van-radio>
+      </van-radio-group>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">每周可训练天数</view>
+      <van-slider value="{{weeklyAvailableDays}}" min="2" max="6" step="1" bind:change="onDaysChange" />
+      <view class="slider-value">{{weeklyAvailableDays}} 天/周</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">偏好训练时长</view>
+      <van-radio-group value="{{preferredDuration}}" bind:change="onDurationChange" direction="horizontal">
+        <van-radio name="45" icon-size="16px">45分钟</van-radio>
+        <van-radio name="60" icon-size="16px">60分钟</van-radio>
+        <van-radio name="90" icon-size="16px">90分钟</van-radio>
+      </van-radio-group>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">可用器械</view>
+    <view class="tag-list">
+      <view class="tag {{item.selected ? 'selected' : ''}}" wx:for="{{equipmentOptions}}" wx:key="name" bindtap="toggleEquipment" data-index="{{index}}">
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">伤病史（选填）</view>
+    <view class="tag-list">
+      <view class="tag {{item.selected ? 'selected' : ''}}" wx:for="{{injuryOptions}}" wx:key="name" bindtap="toggleInjury" data-index="{{index}}">
+        {{item.label}}
+      </view>
+    </view>
+    <view class="input-area">
+      <input class="custom-input" value="{{customInjury}}" bindinput="onCustomInjury" placeholder="其他伤病..." />
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">健康状况（选填）</view>
+    <view class="tag-list">
+      <view class="tag {{item.selected ? 'selected' : ''}}" wx:for="{{healthOptions}}" wx:key="name" bindtap="toggleHealth" data-index="{{index}}">
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <view class="save-btn-wrapper">
+    <button class="save-btn" bindtap="saveProfile">保存档案</button>
+  </view>
+</view>

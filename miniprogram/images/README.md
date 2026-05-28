@@ -12,6 +12,10 @@
 - `tab-profile.png` - 我的图标 (81x81px)
 - `tab-profile-active.png` - 我的选中图标 (81x81px)
 
+### AI助手
+- tab-ai.png （未选中状态）
+- tab-ai-active.png （选中状态）
+
 ### 占位图
 - `empty.png` - 空状态占位图
 - `default-avatar.png` - 默认头像

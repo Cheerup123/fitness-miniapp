@@ -1,0 +1,10 @@
+{
+  "name": "ai-chat-send",
+  "version": "1.0.0",
+  "description": "AI chat send function",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "mysql2": "^3.6.0"
+  }
+}

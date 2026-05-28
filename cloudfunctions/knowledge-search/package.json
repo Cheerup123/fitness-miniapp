@@ -1,0 +1,10 @@
+{
+  "name": "knowledge-search",
+  "version": "1.0.0",
+  "description": "Knowledge search",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "mysql2": "^3.6.0"
+  }
+}

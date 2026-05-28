@@ -1,0 +1,121 @@
+<view class="container">
+  <view class="step-area" wx:if="{{currentStep === 1}}">
+    <view class="step-title">第一步：设置健身目标</view>
+
+    <view class="form-item">
+      <view class="form-label">主要目标</view>
+      <van-radio-group value="{{goal}}" bind:change="onGoalChange" direction="horizontal">
+        <van-radio name="gain_muscle" icon-size="16px">增肌</van-radio>
+        <van-radio name="lose_fat" icon-size="16px">减脂</van-radio>
+        <van-radio name="keep_fit" icon-size="16px">塑形</van-radio>
+        <van-radio name="strength" icon-size="16px">力量</van-radio>
+      </van-radio-group>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">当前健身水平</view>
+      <van-radio-group value="{{fitnessLevel}}" bind:change="onLevelChange" direction="horizontal">
+        <van-radio name="beginner" icon-size="16px">新手</van-radio>
+        <van-radio name="intermediate" icon-size="16px">进阶</van-radio>
+        <van-radio name="advanced" icon-size="16px">高级</van-radio>
+      </van-radio-group>
+    </view>
+
+    <view class="btn-area">
+      <button class="next-btn" bindtap="nextStep">下一步</button>
+    </view>
+  </view>
+
+  <view class="step-area" wx:if="{{currentStep === 2}}">
+    <view class="step-title">第二步：设置训练参数</view>
+
+    <view class="form-item">
+      <view class="form-label">每周训练天数</view>
+      <van-slider value="{{daysPerWeek}}" min="2" max="6" step="1" bind:change="onDaysChange" />
+      <view class="slider-value">{{daysPerWeek}} 天/周</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">计划周期</view>
+      <picker mode="selector" range="{{durationOptions}}" value="{{durationIndex}}" bindchange="onDurationChange">
+        <view class="picker-value">{{durationWeeks}} 周</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">可用器械</view>
+      <view class="equipment-list">
+        <view class="equipment-item {{item.selected ? 'selected' : ''}}" wx:for="{{equipmentOptions}}" wx:key="name" bindtap="toggleEquipment" data-index="{{index}}">
+          {{item.label}}
+        </view>
+      </view>
+    </view>
+
+    <view class="btn-area">
+      <button class="back-btn" bindtap="prevStep">上一步</button>
+      <button class="next-btn" bindtap="generatePlan">生成计划</button>
+    </view>
+  </view>
+
+  <view class="step-area" wx:if="{{currentStep === 3 && generating}}">
+    <view class="generating">
+      <view class="spinner"></view>
+      <view class="generating-text">AI 正在生成个性化训练计划...</view>
+      <view class="generating-tip">基于您的目标和训练参数</view>
+    </view>
+  </view>
+
+  <view class="step-area plan-result" wx:if="{{currentStep === 3 && !generating && generatedPlan}}">
+    <view class="result-header">
+      <view class="result-title">您的 AI 训练计划</view>
+      <view class="result-subtitle">{{generatedPlan.planStructure}}</view>
+    </view>
+
+    <view class="explanation-card">
+      <view class="card-title">计划说明</view>
+      <view class="explanation-text">{{generatedPlan.explanation.differentiation}}</view>
+    </view>
+
+    <view class="explanation-card">
+      <view class="card-title">渐进超负荷策略</view>
+      <view class="explanation-text">{{generatedPlan.explanation.progressive}}</view>
+    </view>
+
+    <view class="plan-preview">
+      <view class="preview-title">训练安排预览</view>
+      <view class="day-item" wx:for="{{generatedPlan.days}}" wx:key="dayOfWeek">
+        <view class="day-header">
+          <text class="day-label">{{item.dayLabel}}</text>
+          <text class="day-rest" wx:if="{{item.isRestDay}}">休息日</text>
+        </view>
+        <view class="exercise-list" wx:if="{{!item.isRestDay && item.exercises.length > 0}}">
+          <view class="exercise-item" wx:for="{{item.exercises}}" wx:for-item="ex" wx:key="exerciseName">
+            <text class="ex-name">{{ex.exerciseName}}</text>
+            <text class="ex-detail">{{ex.sets}}组 × {{ex.reps}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item plan-name-input">
+      <view class="form-label">计划名称</view>
+      <input class="name-input" value="{{planName}}" bindinput="onNameInput" placeholder="给你的计划起个名字" />
+    </view>
+
+    <view class="btn-area">
+      <button class="back-btn" bindtap="prevStep">重新生成</button>
+      <button class="confirm-btn" bindtap="confirmPlan">确认并保存</button>
+    </view>
+  </view>
+
+  <view class="step-area" wx:if="{{currentStep === 4}}">
+    <view class="success-card">
+      <view class="success-icon">✓</view>
+      <view class="success-title">计划已保存！</view>
+      <view class="success-tip">可以去训练页面开始您的第一个训练日了</view>
+      <view class="btn-area">
+        <button class="next-btn" bindtap="goToPlanList">查看我的计划</button>
+      </view>
+    </view>
+  </view>
+</view>

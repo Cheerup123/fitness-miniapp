@@ -1,0 +1,10 @@
+{
+  "name": "fitness-profile-update",
+  "version": "1.0.0",
+  "description": "Fitness profile update",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "mysql2": "^3.6.0"
+  }
+}
