@@ -60,6 +60,23 @@ Page({
     this.updateCurrentDays();
   },
 
+  onCalendarWeekChange(e) {
+    const week = e.detail.week;
+    this.setData({ currentWeek: week });
+    this.updateCurrentDays();
+  },
+
+  onCalendarDayTap(e) {
+    const { weekNumber, dayOfWeek, dayData } = e.detail;
+    // 找到对应的计划日
+    const day = this.data.days.find(d => d.week_number === weekNumber && d.day_of_week === dayOfWeek);
+    if (day && !day.is_rest_day) {
+      wx.navigateTo({
+        url: `/pages/workout/start?planId=${this.data.planId}&planDayId=${day.id}`
+      });
+    }
+  },
+
   updateCurrentDays() {
     const { days, currentWeek } = this.data;
     const currentDays = days.filter(d => d.week_number === currentWeek);

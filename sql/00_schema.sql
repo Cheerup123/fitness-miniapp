@@ -301,3 +301,42 @@ CREATE TABLE `sys_config` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_key` (`config_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统配置';
+
+-- 用户收藏动作
+CREATE TABLE `user_favorite_exercise` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT UNSIGNED NOT NULL,
+  `exercise_id` INT UNSIGNED NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_exercise` (`user_id`, `exercise_id`),
+  KEY `idx_user` (`user_id`),
+  CONSTRAINT `fk_ufe_user` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_ufe_exercise` FOREIGN KEY (`exercise_id`) REFERENCES `exercise`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户收藏动作';
+
+-- 成就配置
+CREATE TABLE `achievement` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(64) NOT NULL COMMENT '成就名称',
+  `description` VARCHAR(256) DEFAULT NULL,
+  `icon` VARCHAR(16) DEFAULT '🏅' COMMENT '成就图标emoji',
+  `category` VARCHAR(32) NOT NULL DEFAULT 'workout' COMMENT '分类: workout/streak/volume/special',
+  `condition_type` VARCHAR(32) NOT NULL COMMENT '条件类型: total_workouts/streak_days/total_volume/total_duration',
+  `condition_value` INT UNSIGNED NOT NULL COMMENT '条件值',
+  `sort_order` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_category` (`category`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='成就配置';
+
+-- 用户成就
+CREATE TABLE `user_achievement` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT UNSIGNED NOT NULL,
+  `achievement_id` INT UNSIGNED NOT NULL,
+  `unlocked_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_achievement` (`user_id`, `achievement_id`),
+  CONSTRAINT `fk_ua_user` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_ua_achievement` FOREIGN KEY (`achievement_id`) REFERENCES `achievement`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户已解锁成就';

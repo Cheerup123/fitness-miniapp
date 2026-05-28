@@ -1,0 +1,67 @@
+.container {
+  padding: 20rpx;
+}
+
+.pr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.pr-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx;
+}
+
+.exercise-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+  background: #F0F0F0;
+  flex-shrink: 0;
+}
+
+.pr-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.exercise-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+  margin-bottom: 16rpx;
+}
+
+.pr-stats {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 12rpx;
+}
+
+.pr-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FF6B35;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.last-date {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  color: #999;
+}

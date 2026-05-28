@@ -1,0 +1,55 @@
+<view class="plan-calendar">
+  <!-- 周选择器 -->
+  <view class="week-selector">
+    <picker mode="selector" range="{{weekOptions}}" range-key="text" value="{{currentWeek - 1}}" bindchange="onWeekChange">
+      <view class="week-display">
+        <text class="week-text">第 {{currentWeek}} 周</text>
+        <text class="week-arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 星期标题 -->
+  <view class="weekday-header">
+    <view class="weekday-item" wx:for="['一', '二', '三', '四', '五', '六', '日']" wx:key="*this">
+      周{{item}}
+    </view>
+  </view>
+
+  <!-- 日历网格 -->
+  <view class="calendar-grid" wx:if="{{currentWeekData}}">
+    <view 
+      class="day-cell {{item.isRestDay ? 'rest' : ''}} {{item.completed ? 'completed' : ''}}" 
+      wx:for="{{currentWeekData.days}}" 
+      wx:key="dayOfWeek"
+      bindtap="onDayTap"
+      data-week="{{currentWeek}}"
+      data-day="{{item.dayOfWeek}}"
+    >
+      <view class="day-content">
+        <text class="day-label">{{item.dayLabel}}</text>
+        <view class="day-status" wx:if="{{!item.isRestDay}}">
+          <text class="exercise-count" wx:if="{{item.exercises.length > 0}}">{{item.exercises.length}}个动作</text>
+          <view class="complete-badge" wx:if="{{item.completed}}">✓</view>
+        </view>
+        <text class="rest-label" wx:if="{{item.isRestDay}}">休息</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图例 -->
+  <view class="calendar-legend">
+    <view class="legend-item">
+      <view class="legend-dot rest"></view>
+      <text>休息日</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot training"></view>
+      <text>训练日</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot completed"></view>
+      <text>已完成</text>
+    </view>
+  </view>
+</view>

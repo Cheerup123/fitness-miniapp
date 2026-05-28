@@ -1,0 +1,145 @@
+.plan-calendar {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+}
+
+.week-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24rpx;
+}
+
+.week-display {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx 32rpx;
+  background: #F5F5FA;
+  border-radius: 32rpx;
+}
+
+.week-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.week-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.weekday-header {
+  display: flex;
+  margin-bottom: 16rpx;
+}
+
+.weekday-item {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: #666;
+  padding: 16rpx 0;
+}
+
+.calendar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.day-cell {
+  width: calc((100% - 72rpx) / 7);
+  aspect-ratio: 1;
+  background: #FFF5F0;
+  border-radius: 12rpx;
+  padding: 12rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2rpx solid transparent;
+}
+
+.day-cell.rest {
+  background: #F5F5FA;
+}
+
+.day-cell.completed {
+  border-color: #4CAF50;
+  background: #E8F5E9;
+}
+
+.day-label {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.day-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.exercise-count {
+  font-size: 20rpx;
+  color: #FF6B35;
+}
+
+.complete-badge {
+  width: 32rpx;
+  height: 32rpx;
+  background: #4CAF50;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rest-label {
+  font-size: 22rpx;
+  color: #999;
+  text-align: center;
+}
+
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 32rpx;
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #F0F0F0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.legend-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 4rpx;
+}
+
+.legend-dot.rest {
+  background: #F5F5FA;
+  border: 1rpx solid #E0E0E0;
+}
+
+.legend-dot.training {
+  background: #FFF5F0;
+  border: 1rpx solid #FFD4C7;
+}
+
+.legend-dot.completed {
+  background: #E8F5E9;
+  border: 1rpx solid #4CAF50;
+}

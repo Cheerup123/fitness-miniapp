@@ -1,4 +1,32 @@
 .container { padding: 24rpx; padding-bottom: 160rpx; }
+
+.quick-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  padding: 24rpx;
+  background: #F5F5FA;
+  border-radius: 12rpx;
+}
+
+.action-icon {
+  font-size: 40rpx;
+}
+
+.action-text {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
 .latest-card { padding: 32rpx; }
 .latest-grid { display: flex; justify-content: space-around; margin-top: 16rpx; }
 .latest-item { display: flex; flex-direction: column; align-items: center; }

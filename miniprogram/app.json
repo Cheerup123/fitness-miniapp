@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/plan/list",
     "pages/plan/detail",
+    "pages/plan/editor",
     "pages/workout/start",
     "pages/workout/history",
     "pages/workout/summary",
@@ -10,8 +11,12 @@
     "pages/exercise/detail",
     "pages/body/index",
     "pages/body/record",
+    "pages/body/milestones",
     "pages/profile/index",
-    "pages/profile/edit"
+    "pages/profile/edit",
+    "pages/profile/pr-records",
+    "pages/profile/favorites",
+    "pages/profile/achievements"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -88,6 +93,7 @@
     "stat-card": "/components/stat-card/stat-card",
     "empty-state": "/components/empty-state/empty-state"
   },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }

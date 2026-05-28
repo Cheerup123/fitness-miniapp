@@ -1,0 +1,38 @@
+<view class="container">
+  <!-- 概览卡片 -->
+  <view class="overview-card card">
+    <view class="overview-item">
+      <text class="overview-value">{{totalDays}}</text>
+      <text class="overview-label">记录天数</text>
+    </view>
+    <view class="overview-divider"></view>
+    <view class="overview-item">
+      <text class="overview-value">{{latestWeight || '-'}}</text>
+      <text class="overview-label">当前体重(kg)</text>
+    </view>
+    <view class="overview-divider"></view>
+    <view class="overview-item">
+      <text class="overview-value">{{targetWeight || '-'}}</text>
+      <text class="overview-label">目标体重(kg)</text>
+    </view>
+  </view>
+
+  <!-- 里程碑列表 -->
+  <view class="section-title">🏆 里程碑</view>
+  
+  <view class="milestone-list" wx:if="{{milestones.length > 0}}">
+    <view class="milestone-item {{index === 0 ? 'latest' : ''}}" wx:for="{{milestones}}" wx:key="index">
+      <view class="milestone-icon">{{item.icon}}</view>
+      <view class="milestone-content">
+        <view class="milestone-header">
+          <text class="milestone-title">{{item.title}}</text>
+          <text class="milestone-date">{{formatDate(item.date)}}</text>
+        </view>
+        <text class="milestone-desc">{{item.description}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <empty-state wx:else icon="🎯" title="暂无里程碑" description="坚持记录身体数据，解锁你的成就"></empty-state>
+</view>

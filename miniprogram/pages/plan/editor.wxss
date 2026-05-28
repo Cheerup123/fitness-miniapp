@@ -1,0 +1,284 @@
+.container {
+  padding: 20rpx;
+  padding-bottom: 140rpx;
+}
+
+.section {
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+  border-left: 6rpx solid #FF6B35;
+}
+
+.form-item {
+  margin: 20rpx 0;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.form-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.picker-value {
+  padding: 20rpx;
+  background: #F5F5FA;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 天数列表 */
+.day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.day-item {
+  background: #F5F5FA;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  border: 2rpx solid transparent;
+}
+
+.day-item.rest-day {
+  border-color: #E0E0E0;
+  background: #FAFAFA;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.day-label-input {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #1A1A2E;
+  background: transparent;
+  border: none;
+  padding: 10rpx 0;
+}
+
+.day-actions {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.rest-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 动作列表 */
+.day-content {
+  margin-top: 16rpx;
+}
+
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.exercise-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  background: #fff;
+  padding: 16rpx;
+  border-radius: 8rpx;
+}
+
+.exercise-img {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  background: #F0F0F0;
+}
+
+.exercise-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.exercise-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.exercise-params {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.add-exercise-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 24rpx;
+  border: 2rpx dashed #FF6B35;
+  border-radius: 8rpx;
+  color: #FF6B35;
+  font-size: 28rpx;
+}
+
+/* 底部按钮 */
+.footer-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 30rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1rpx solid #F0F0F0;
+}
+
+/* 弹窗样式 */
+.exercise-modal {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.body-part-filter {
+  padding: 20rpx;
+  white-space: nowrap;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.filter-item {
+  display: inline-block;
+  padding: 12rpx 24rpx;
+  margin-right: 16rpx;
+  background: #F5F5FA;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.filter-item.active {
+  background: #FF6B35;
+  color: #fff;
+}
+
+.exercise-select-list {
+  flex: 1;
+  padding: 20rpx;
+}
+
+.exercise-select-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: #F5F5FA;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  border: 2rpx solid transparent;
+}
+
+.exercise-select-item.selected {
+  border-color: #FF6B35;
+  background: #FFF5F0;
+}
+
+.exercise-select-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  background: #E0E0E0;
+}
+
+.exercise-select-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.exercise-select-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.exercise-select-type {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.exercise-params-form {
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #F0F0F0;
+  background: #fff;
+}
+
+.params-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.param-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.param-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.param-input {
+  width: 120rpx;
+  padding: 12rpx;
+  background: #F5F5FA;
+  border-radius: 8rpx;
+  text-align: center;
+  font-size: 28rpx;
+}

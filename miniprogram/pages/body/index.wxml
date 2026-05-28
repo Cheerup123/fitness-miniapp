@@ -1,4 +1,16 @@
 <view class="container">
+  <!-- 快捷入口 -->
+  <view class="quick-actions card">
+    <view class="action-item" bindtap="goMilestones">
+      <view class="action-icon">🏆</view>
+      <text class="action-text">里程碑</text>
+    </view>
+    <view class="action-item" bindtap="goRecord">
+      <view class="action-icon">📝</view>
+      <text class="action-text">记数据</text>
+    </view>
+  </view>
+
   <!-- 最新数据 -->
   <view class="latest-card card" wx:if="{{latestRecord}}">
     <view class="section-title">📊 最新数据</view>

@@ -55,5 +55,9 @@ Page({
   goDetail(e) {
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({ url: `/pages/plan/detail?id=${id}` });
+  },
+
+  goCreate() {
+    wx.navigateTo({ url: '/pages/plan/editor' });
   }
 });

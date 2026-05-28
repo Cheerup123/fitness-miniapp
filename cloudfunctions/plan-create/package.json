@@ -1,0 +1,10 @@
+{
+  "name": "plan-create",
+  "version": "1.0.0",
+  "description": "创建自定义训练计划",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "mysql2": "^3.6.0"
+  }
+}

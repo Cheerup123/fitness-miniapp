@@ -1,0 +1,25 @@
+<view class="container">
+  <!-- 收藏列表 -->
+  <view class="favorite-list" wx:if="{{favorites.length > 0}}">
+    <van-swipe-cell wx:for="{{favorites}}" wx:key="id" right-width="{{ 80 }}">
+      <view class="favorite-card card" bindtap="goExerciseDetail" data-id="{{item.id}}">
+        <image class="exercise-img" src="{{item.demo_image_url || '/images/exercise-default.png'}}" mode="aspectFill"/>
+        <view class="exercise-info">
+          <view class="exercise-name">{{item.name}}</view>
+          <view class="exercise-meta">
+            <van-tag size="mini" type="primary">{{item.exercise_type === 'strength' ? '力量' : '有氧'}}</van-tag>
+            <text class="body-part" wx:if="{{item.body_part_name}}">{{item.body_part_name}}</text>
+            <text class="equipment" wx:if="{{item.equipment}}">{{item.equipment}}</text>
+          </view>
+        </view>
+        <van-icon name="arrow" color="#CCCCCC"/>
+      </view>
+      <view slot="right" class="delete-btn" bindtap="removeFavorite" data-id="{{item.id}}">
+        <van-icon name="delete" color="#fff" size="20px"/>
+      </view>
+    </van-swipe-cell>
+  </view>
+
+  <!-- 空状态 -->
+  <empty-state wx:else icon="⭐" title="暂无收藏" description="在动作库中收藏你喜欢的动作"></empty-state>
+</view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "个人最佳",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-tag": "@vant/weapp/tag/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

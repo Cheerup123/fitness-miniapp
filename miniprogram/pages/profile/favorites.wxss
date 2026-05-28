@@ -1,0 +1,60 @@
+.container {
+  padding: 20rpx;
+}
+
+.favorite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.favorite-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx;
+  background: #fff;
+}
+
+.exercise-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 12rpx;
+  background: #F0F0F0;
+  flex-shrink: 0;
+}
+
+.exercise-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.exercise-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #1A1A2E;
+}
+
+.exercise-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.body-part, .equipment {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.delete-btn {
+  width: 80px;
+  height: 100%;
+  background: #FF4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

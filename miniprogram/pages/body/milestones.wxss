@@ -1,0 +1,110 @@
+.container {
+  padding: 20rpx;
+}
+
+.overview-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 32rpx 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.overview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.overview-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FF6B35;
+}
+
+.overview-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.overview-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: #E0E0E0;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+  border-left: 6rpx solid #FF6B35;
+}
+
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.milestone-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  border-left: 6rpx solid #E0E0E0;
+}
+
+.milestone-item.latest {
+  border-left-color: #FF6B35;
+  background: linear-gradient(135deg, #FFF5F0 0%, #fff 100%);
+}
+
+.milestone-icon {
+  width: 64rpx;
+  height: 64rpx;
+  background: #F5F5FA;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.milestone-item.latest .milestone-icon {
+  background: #FF6B35;
+}
+
+.milestone-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.milestone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.milestone-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.milestone-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.milestone-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+}

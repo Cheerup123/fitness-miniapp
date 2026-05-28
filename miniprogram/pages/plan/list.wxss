@@ -95,3 +95,13 @@
   flex-shrink: 0;
   margin-left: 16rpx;
 }
+
+.create-btn-wrapper {
+  position: fixed;
+  bottom: 40rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom);
+}

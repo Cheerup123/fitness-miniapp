@@ -48,4 +48,9 @@
 
   <!-- 空状态 -->
   <empty-state wx:else icon="📋" title="暂无训练计划" description="换个筛选条件试试吧"></empty-state>
+
+  <!-- 创建按钮 -->
+  <view class="create-btn-wrapper">
+    <van-button type="primary" round color="#FF6B35" icon="plus" bindtap="goCreate">创建计划</van-button>
+  </view>
 </view>

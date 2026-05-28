@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "里程碑",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

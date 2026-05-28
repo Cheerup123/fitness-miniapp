@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "收藏动作",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-tag": "@vant/weapp/tag/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

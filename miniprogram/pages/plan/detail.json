@@ -1,4 +1,9 @@
 {
   "navigationBarTitleText": "计划详情",
-  "usingComponents": {}
+  "usingComponents": {
+    "van-tag": "@vant/weapp/tag/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-button": "@vant/weapp/button/index",
+    "plan-calendar": "/components/plan-calendar/plan-calendar"
+  }
 }

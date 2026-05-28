@@ -1,0 +1,32 @@
+<view class="container">
+  <!-- 进度概览 -->
+  <view class="progress-card card">
+    <view class="progress-header">
+      <view class="progress-title">成就进度</view>
+      <view class="progress-count">{{stats.unlocked}}/{{stats.total}}</view>
+    </view>
+    <van-progress percentage="{{stats.progress}}" stroke-height="8" color="#FF6B35" track-color="#F5F5FA"/>
+    <view class="progress-text">已解锁 {{stats.progress}}% 的成就</view>
+  </view>
+
+  <!-- 成就分类 -->
+  <view wx:for="{{categories}}" wx:key="key" class="category-section">
+    <view class="category-title">{{item.name}}</view>
+    <view class="achievement-grid">
+      <view class="achievement-item {{achievement.is_unlocked ? 'unlocked' : 'locked'}}" wx:for="{{item.list}}" wx:for-item="achievement" wx:key="id">
+        <view class="achievement-icon">{{achievement.icon}}</view>
+        <view class="achievement-info">
+          <text class="achievement-name">{{achievement.name}}</text>
+          <text class="achievement-desc">{{achievement.description}}</text>
+          <text class="achievement-time" wx:if="{{achievement.is_unlocked}}">{{formatDate(achievement.unlocked_at)}}</text>
+        </view>
+        <view class="achievement-status">
+          <van-icon name="{{achievement.is_unlocked ? 'success' : 'lock'}}" size="20px" color="{{achievement.is_unlocked ? '#4CAF50' : '#CCC'}}"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <empty-state wx:if="{{categories.length === 0}}" icon="🏅" title="暂无成就" description="开始训练，解锁你的第一个成就！"></empty-state>
+</view>

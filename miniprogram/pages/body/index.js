@@ -135,5 +135,9 @@ Page({
 
   goRecord() {
     wx.navigateTo({ url: '/pages/body/record' });
+  },
+
+  goMilestones() {
+    wx.navigateTo({ url: '/pages/body/milestones' });
   }
 });

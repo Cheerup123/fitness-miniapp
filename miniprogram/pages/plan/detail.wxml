@@ -27,9 +27,19 @@
     </view>
   </view>
 
+  <!-- 日历视图 -->
+  <view class="calendar-section card">
+    <plan-calendar 
+      plan-id="{{planId}}" 
+      current-week="{{currentWeek}}"
+      bind:weekChange="onCalendarWeekChange"
+      bind:dayTap="onCalendarDayTap"
+    />
+  </view>
+
   <!-- 周选择 -->
   <view class="week-selector">
-    <view class="section-title">📅 训练安排</view>
+    <view class="section-title">📋 详细安排</view>
     <scroll-view scroll-x class="week-scroll">
       <view class="week-tabs">
         <view class="week-tab {{currentWeek === item ? 'active' : ''}}" 

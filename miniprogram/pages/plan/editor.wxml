@@ -1,0 +1,158 @@
+<view class="container">
+  <!-- 基本信息 -->
+  <view class="section card">
+    <view class="section-title">基本信息</view>
+    
+    <van-cell-group border="{{false}}">
+      <van-field
+        label="计划名称"
+        placeholder="给计划起个名字"
+        value="{{name}}"
+        bind:input="onNameInput"
+        required
+      />
+      <van-field
+        label="计划描述"
+        type="textarea"
+        placeholder="简单描述一下这个计划的目标和特点"
+        value="{{description}}"
+        bind:input="onDescInput"
+        autosize="{{ { maxHeight: 100, minHeight: 60 } }}"
+      />
+    </van-cell-group>
+
+    <!-- 难度选择 -->
+    <view class="form-item">
+      <view class="form-label">难度等级</view>
+      <van-radio-group value="{{difficultyLevel}}" bind:change="onDifficultyChange" direction="horizontal">
+        <van-radio name="beginner" icon-size="16px">入门</van-radio>
+        <van-radio name="intermediate" icon-size="16px">进阶</van-radio>
+        <van-radio name="advanced" icon-size="16px">高级</van-radio>
+      </van-radio-group>
+    </view>
+
+    <!-- 健身目标 -->
+    <view class="form-item">
+      <view class="form-label">健身目标</view>
+      <van-radio-group value="{{fitnessGoal}}" bind:change="onGoalChange" direction="horizontal">
+        <van-radio name="lose_fat" icon-size="16px">减脂</van-radio>
+        <van-radio name="gain_muscle" icon-size="16px">增肌</van-radio>
+        <van-radio name="keep_fit" icon-size="16px">塑形</van-radio>
+      </van-radio-group>
+    </view>
+
+    <!-- 周期设置 -->
+    <view class="form-row">
+      <view class="form-item flex-1">
+        <view class="form-label">计划周期</view>
+        <picker mode="selector" range="{{durationOptions}}" value="{{durationOptions.indexOf(durationWeeks)}}" bindchange="onDurationChange">
+          <view class="picker-value">{{durationWeeks}} 周</view>
+        </picker>
+      </view>
+      <view class="form-item flex-1">
+        <view class="form-label">每周训练</view>
+        <picker mode="selector" range="{{daysPerWeekOptions}}" value="{{daysPerWeekOptions.indexOf(daysPerWeek)}}" bindchange="onDaysPerWeekChange">
+          <view class="picker-value">{{daysPerWeek}} 天</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 训练安排 -->
+  <view class="section card">
+    <view class="section-title">训练安排</view>
+    
+    <view class="day-list">
+      <view class="day-item {{item.isRestDay ? 'rest-day' : ''}}" wx:for="{{days}}" wx:key="index">
+        <view class="day-header">
+          <input 
+            class="day-label-input" 
+            value="{{item.dayLabel}}" 
+            bindinput="onDayLabelInput"
+            data-index="{{index}}"
+            placeholder="输入训练日名称"
+          />
+          <view class="day-actions">
+            <switch checked="{{!item.isRestDay}}" bindchange="toggleRestDay" data-index="{{index}}" color="#FF6B35"/>
+            <text class="rest-text">{{item.isRestDay ? '休息日' : '训练日'}}</text>
+          </view>
+        </view>
+
+        <!-- 训练日内容 -->
+        <view class="day-content" wx:if="{{!item.isRestDay}}">
+          <!-- 已添加的动作 -->
+          <view class="exercise-list" wx:if="{{item.exercises.length > 0}}">
+            <view class="exercise-item" wx:for="{{item.exercises}}" wx:for-item="ex" wx:for-index="exIndex" wx:key="exIndex">
+              <image class="exercise-img" src="{{ex.demoImageUrl || '/images/exercise-default.png'}}" mode="aspectFill"/>
+              <view class="exercise-info">
+                <text class="exercise-name">{{ex.name}}</text>
+                <text class="exercise-params">{{ex.sets}}组 x {{ex.reps}}次 · 休息{{ex.restSec}}秒</text>
+              </view>
+              <van-icon name="cross" color="#999" bindtap="removeExercise" data-day-index="{{index}}" data-ex-index="{{exIndex}}"/>
+            </view>
+          </view>
+
+          <!-- 添加动作按钮 -->
+          <view class="add-exercise-btn" bindtap="openExerciseModal" data-index="{{index}}">
+            <van-icon name="plus" color="#FF6B35"/>
+            <text>添加动作</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="footer-actions">
+    <van-button type="primary" block color="#FF6B35" bindtap="savePlan">创建计划</van-button>
+  </view>
+</view>
+
+<!-- 动作选择弹窗 -->
+<van-popup show="{{showExerciseModal}}" position="bottom" custom-style="height: 70%;" bind:close="closeExerciseModal">
+  <view class="exercise-modal">
+    <view class="modal-header">
+      <text class="modal-title">选择动作</text>
+      <van-icon name="cross" size="20px" bindtap="closeExerciseModal"/>
+    </view>
+
+    <!-- 身体部位筛选 -->
+    <scroll-view class="body-part-filter" scroll-x>
+      <view class="filter-item {{selectedBodyPart === '' ? 'active' : ''}}" bindtap="filterByBodyPart" data-id="">全部</view>
+      <view class="filter-item {{selectedBodyPart === item.id ? 'active' : ''}}" wx:for="{{bodyParts}}" wx:key="id" bindtap="filterByBodyPart" data-id="{{item.id}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+
+    <!-- 动作列表 -->
+    <scroll-view class="exercise-select-list" scroll-y>
+      <view class="exercise-select-item {{currentExercise && currentExercise.id === item.id ? 'selected' : ''}}" wx:for="{{exercises}}" wx:key="id" bindtap="selectExercise" data-item="{{item}}">
+        <image class="exercise-select-img" src="{{item.demo_image_url || '/images/exercise-default.png'}}" mode="aspectFill"/>
+        <view class="exercise-select-info">
+          <text class="exercise-select-name">{{item.name}}</text>
+          <text class="exercise-select-type">{{item.exercise_type === 'strength' ? '力量' : '有氧'}} · {{item.equipment || '徒手'}}</text>
+        </view>
+        <van-icon name="success" color="#FF6B35" wx:if="{{currentExercise && currentExercise.id === item.id}}"/>
+      </view>
+    </scroll-view>
+
+    <!-- 动作参数设置 -->
+    <view class="exercise-params-form" wx:if="{{currentExercise}}">
+      <view class="params-row">
+        <view class="param-item">
+          <text class="param-label">组数</text>
+          <van-stepper value="{{exerciseSets}}" min="1" max="10" bind:change="onSetsInput"/>
+        </view>
+        <view class="param-item">
+          <text class="param-label">次数</text>
+          <input class="param-input" value="{{exerciseReps}}" bindinput="onRepsInput" placeholder="如: 10-12"/>
+        </view>
+        <view class="param-item">
+          <text class="param-label">休息(秒)</text>
+          <van-stepper value="{{exerciseRest}}" min="0" max="300" step="15" bind:change="onRestInput"/>
+        </view>
+      </view>
+      <van-button type="primary" block color="#FF6B35" size="small" bindtap="addExerciseToDay">确认添加</van-button>
+    </view>
+  </view>
+</van-popup>

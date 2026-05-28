@@ -1,0 +1,10 @@
+{
+  "name": "pr-record",
+  "version": "1.0.0",
+  "description": "个人最佳记录(PR)管理",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "mysql2": "^3.6.0"
+  }
+}

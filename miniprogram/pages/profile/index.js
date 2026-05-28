@@ -10,7 +10,9 @@ Page({
     menuList: [
       { icon: '🏋️', title: '训练历史', url: '/pages/workout/history' },
       { icon: '📈', title: '身体数据', url: '/pages/body/index' },
-      { icon: '🏅', title: '我的成就', url: '' },
+      { icon: '🏆', title: '个人最佳', url: '/pages/profile/pr-records' },
+      { icon: '⭐', title: '收藏动作', url: '/pages/profile/favorites' },
+      { icon: '🏅', title: '我的成就', url: '/pages/profile/achievements' },
       { icon: '⚙️', title: '设置', url: '' }
     ]
   },
