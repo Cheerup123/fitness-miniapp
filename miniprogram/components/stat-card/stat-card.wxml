@@ -1,6 +1,6 @@
 <view class="stat-card" style="background: {{bgColor || '#FFFFFF'}};">
   <view class="stat-icon" wx:if="{{icon}}">
-    <text>{{icon}}</text>
+    <text class="stat-icon-text">{{icon}}</text>
   </view>
   <view class="stat-content">
     <view class="stat-value" style="color: {{valueColor || '#1A1A2E'}};">

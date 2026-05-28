@@ -55,14 +55,15 @@ exports.main = async (event, context) => {
 
     // 分页查询
     const offset = (page - 1) * pageSize;
+    const limit = Number(pageSize);
     const [exercises] = await pool.execute(
       `SELECT e.*, ec.name as category_name
        FROM exercise e
        LEFT JOIN exercise_category ec ON ec.id = e.category_id
        ${whereClause}
        ORDER BY e.is_compound DESC, e.name
-       LIMIT ? OFFSET ?`,
-      [...params, Number(pageSize), Number(offset)]
+       LIMIT ${limit} OFFSET ${offset}`,
+      params
     );
 
     // 获取每个动作的目标肌群

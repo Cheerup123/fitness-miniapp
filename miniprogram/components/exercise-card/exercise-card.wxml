@@ -2,7 +2,7 @@
   <view class="card-left">
     <image class="exercise-image" src="{{exercise.demo_image_url || '/images/empty.png'}}" mode="aspectFill" lazy-load></image>
     <view class="type-badge" wx:if="{{exercise.exercise_type}}">
-      <text>{{typeLabel}}</text>
+      <text class="type-badge-text">{{typeLabel}}</text>
     </view>
   </view>
   <view class="card-content">

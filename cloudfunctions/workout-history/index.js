@@ -47,7 +47,7 @@ exports.main = async (event, context) => {
 
     // 分页查询
     const offset = (page - 1) * pageSize;
-    const queryParams = [...params, Number(pageSize), Number(offset)];
+    const limit = Number(pageSize);
 
     const [logs] = await pool.execute(
       `SELECT wl.*, wp.name as plan_name
@@ -55,8 +55,8 @@ exports.main = async (event, context) => {
        LEFT JOIN workout_plan wp ON wp.id = wl.plan_id
        ${whereClause}
        ORDER BY wl.workout_date DESC, wl.start_time DESC
-       LIMIT ? OFFSET ?`,
-      queryParams
+       LIMIT ${limit} OFFSET ${offset}`,
+      params
     );
 
     // 获取每条记录的动作列表
