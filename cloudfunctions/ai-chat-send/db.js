@@ -14,8 +14,7 @@ function getPool() {
       connectionLimit: 5,
       queueLimit: 0,
       charset: 'utf8mb4',
-      connectTimeout: 10000,
-      acquireTimeout: 10000,
+      connectTimeout: 60000,
     });
   }
   return pool;
